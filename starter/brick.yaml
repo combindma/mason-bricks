@@ -1,0 +1,5 @@
+name: starter
+description: A brick to use as a start of any Flutter project.
+version: 0.1.0+1
+environment:
+  mason: ^0.1.2
