@@ -1,4 +1,4 @@
-.PHONY: clean get gen watch icons splash fix fmt lint test check build-apk build-ios help
+.PHONY: clean get gen watch icons splash fix fmt lint test check build-apk build-ios pod pod-update pod-clean help
 
 # Default target: Run when you just type 'make'
 help:
