@@ -5,7 +5,7 @@ class Routes {
   static const home = 'home';
   static const onboarding = 'onboarding';
   static const login = 'login';
-  static const register = 'signup';
+  static const signup = 'signup';
   static const search = 'search';
   static const account = 'account';
 }

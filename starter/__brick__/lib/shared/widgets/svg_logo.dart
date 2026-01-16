@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../config/app_config.dart';
-import '../logos.dart';
+import '../../config/app_config.dart';
+import '../utils/logos.dart';
 
 class SvgLogoComponent extends StatelessWidget {
   const SvgLogoComponent({

@@ -15,7 +15,7 @@ class BaseTheme {
 
   static ThemeData light = ThemeData(
     useMaterial3: true,
-    //fontFamily: 'Felicita',
+    //fontFamily: 'Combind', TODO
     brightness: Brightness.light,
     colorScheme: BaseColorTheme.lightTheme,
     appBarTheme: BaseAppBarTheme.lightTheme,
@@ -37,7 +37,7 @@ class BaseTheme {
   );
   static ThemeData dark = ThemeData(
     useMaterial3: true,
-    //fontFamily: 'Felicita',
+    //fontFamily: 'Combind', TODO
     brightness: Brightness.dark,
     colorScheme: BaseColorTheme.darkTheme,
     appBarTheme: BaseAppBarTheme.darkTheme,

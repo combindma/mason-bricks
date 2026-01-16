@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AlertComponent extends StatelessWidget {
   const AlertComponent({super.key, required this.title, required this.message, this.action});
@@ -14,7 +15,7 @@ class AlertComponent extends StatelessWidget {
       content: Text(message),
       actions: <Widget>[
         TextButton(
-          onPressed: () => Navigator.pop(context, 'Fermer'),
+          onPressed: () => context.pop(),
           child: const Text('Fermer'),
         ),
         if (action != null) action!,
