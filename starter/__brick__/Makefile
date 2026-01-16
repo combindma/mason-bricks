@@ -41,6 +41,9 @@ launcher:
 splash:
 	flutter pub run flutter_native_splash:create
 
+feature:
+	mason make feature
+
 # --- Quality Control ---
 
 fmt:
