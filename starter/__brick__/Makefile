@@ -1,26 +1,25 @@
-.PHONY: clean get gen watch icons splash fix fmt lint test check build-apk build-ios pod pod-update pod-clean help
+.PHONY: clean feature gen watch icons splash fix fmt lint test check apk ios android pod pod-update pod-clean help
 
 # Default target: Run when you just type 'make'
 help:
 	@echo "--------------------------------------------------------------------------------"
 	@echo "                           FLUTTER MAKEFILE HELP"
 	@echo "--------------------------------------------------------------------------------"
-	@echo "make get      - Get dependencies"
-	@echo "make clean    - Clean project and get dependencies"
-	@echo "make gen      - Run build_runner build (delete conflicting outputs)"
-	@echo "make watch    - Run build_runner watch (delete conflicting outputs)"
-	@echo "make launcher    - Generate launcher icons"
-	@echo "make splash   - Generate native splash screen"
-	@echo "make fix      - Format code and apply auto-fixes"
-	@echo "make check    - Run format, analyze, and test (Pre-commit)"
-	@echo "make pod        - Install iOS pods"
-	@echo "make pod-clean  - Nuke iOS Pods/Lockfile and reinstall (Fixes iOS issues)"
+	@echo "make clean     - Clean project and get dependencies"
+	@echo "make check     - Run format, analyze, and test (Pre-commit)"
+	@echo "make gen       - Run build_runner build (delete conflicting outputs)"
+	@echo "make watch     - Run build_runner watch (delete conflicting outputs)"
+	@echo "make feature   - Create a mason feature"
+	@echo "make launcher  - Generate launcher icons"
+	@echo "make splash    - Generate native splash screen"
+	@echo "make pod       - Install iOS pods"
+	@echo "make pod-clean - Nuke iOS Pods/Lockfile and reinstall (Fixes iOS issues)"
+	@echo "make apk"
+	@echo "make android"
+	@echo "make ios"
 	@echo "--------------------------------------------------------------------------------"
 
 # --- Dependency Management ---
-get:
-	flutter pub get
-
 clean:
 	@echo "Cleaning project..."
 	flutter clean
@@ -81,8 +80,8 @@ pod-clean:
 apk:
 	flutter build apk --release
 
-aab:
+android:
 	flutter build appbundle --release
 
-ipa:
+ios:
 	flutter build ipa --release
