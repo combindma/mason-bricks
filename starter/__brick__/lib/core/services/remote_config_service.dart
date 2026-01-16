@@ -20,7 +20,7 @@ class RemoteConfigService {
 
   static String get apiUrl => _remoteConfig.getString(_apiUrlKey);
 
-  Future<void> init() async {
+  static Future<void> init() async {
     await dotenv.load();
     await _remoteConfig.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: const Duration(minutes: 1),

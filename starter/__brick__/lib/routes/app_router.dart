@@ -10,12 +10,13 @@ import '../src/onboarding/presentation/screens/onboarding_screen.dart';
 import '../src/user/presentation/screens/account_screen.dart';
 import 'routes.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
+final rootNavigatorKeyProvider = Provider<GlobalKey<NavigatorState>>(isAutoDispose: true, (ref) => GlobalKey<NavigatorState>(debugLabel: 'root'));
 
-final routerProvider = Provider((ref) {
+final routerProvider = Provider<GoRouter>(isAutoDispose: true, (ref) {
+  final rootKey = ref.watch(rootNavigatorKeyProvider);
   return GoRouter(
     debugLogDiagnostics: true,
-    navigatorKey: navigatorKey,
+    navigatorKey: rootKey,
     initialLocation: '/home',
     routes: [
       StatefulShellRoute.indexedStack(

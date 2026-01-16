@@ -112,10 +112,10 @@ class DeviceHelper {
     return Platform.isAndroid;
   }
 
-  static Future<bool> launch(Uri uri) async {
+  static Future<bool> launch(Uri uri, [LaunchMode mode = LaunchMode.platformDefault]) async {
     try {
       if (await canLaunchUrl(uri)) {
-        return await launchUrl(uri, mode: LaunchMode.platformDefault);
+        return await launchUrl(uri, mode: mode);
       } else {
         return false;
       }
