@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/spacing.dart';
+import '../theme/spacing.dart';
 
 class DraggableSheetComponent extends StatelessWidget {
   const DraggableSheetComponent({

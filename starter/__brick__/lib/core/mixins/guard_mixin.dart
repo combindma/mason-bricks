@@ -1,8 +1,24 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../bootstrap/error_provider.dart';
-import '../exceptions/app_exception.dart';
 
+
+/*
+* Example of how you can call 'guardAndNotify' directly:
+*
+*
+  Future<void> fetchData() async {
+    await guardAndNotify(
+      () async {
+        final response = await dio.get('my_api/data');
+        return MyData.fromJson(response.data);
+      },
+      customErrorMessage: "Unable to load data", //Optional
+    );
+  }
+  *
+  *
+* */
 mixin GuardMixin<T> on AsyncNotifier<T> {
   Future<void> guardAndNotify(
       Future<T> Function() future, {
@@ -12,18 +28,9 @@ mixin GuardMixin<T> on AsyncNotifier<T> {
     state = await AsyncValue.guard(future);
 
     if (state.hasError) {
-      final error = state.error;
-      String message;
-      if (error is AppException) {
-        // 1. It's OUR custom error. We trust the message.
-        message = error.message;
-      } else if (error.toString().contains("SocketException")) {
-        // 2. It's a network issue
-        message = "Check your internet connection.";
-      } else {
-        // 3. It's a crash/bug we didn't expect
-        message = fallbackMessage ?? "Une erreur s'est produite, veuillez réssayer ultérieurment.";
-      }
+      final error = state.error!;
+      final errorHandler = ref.read(errorHandlerProvider);
+      final String message = fallbackMessage ?? errorHandler.map(error, state.stackTrace);
       ref.read(globalErrorProvider.notifier).show(message, error);
     }
   }

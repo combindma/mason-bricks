@@ -1,11 +1,14 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ErrorEvent {
-  final String message;
-  final Object? originalException;
+import '../core/exceptions/index.dart';
 
-  ErrorEvent(this.message, [this.originalException]);
-}
+final globalErrorProvider = NotifierProvider<GlobalErrorNotifier, ErrorEvent?>(GlobalErrorNotifier.new);
+
+final errorHandlerProvider = Provider<ErrorHandler>((ref) => ErrorHandler(ref));
 
 class GlobalErrorNotifier extends Notifier<ErrorEvent?> {
   @override
@@ -18,4 +21,28 @@ class GlobalErrorNotifier extends Notifier<ErrorEvent?> {
   }
 }
 
-final globalErrorProvider = NotifierProvider<GlobalErrorNotifier, ErrorEvent?>(GlobalErrorNotifier.new);
+class ErrorEvent {
+  final String message;
+  final Object? originalException;
+
+  ErrorEvent(this.message, [this.originalException]);
+}
+
+class ErrorHandler {
+  final Ref _ref;
+
+  ErrorHandler(this._ref);
+
+  String map(Object error, [StackTrace? stackTrace]) {
+    // You can log the error to Crashlytics/Sentry here using another provider
+    // _ref.read(loggerProvider).log(error, stackTrace);
+
+    if (error is SocketException || error is TimeoutException || error.toString().contains("SocketException")) {
+      return NetworkException().handleError(error);
+    } else if (error is FirebaseAuthException || error is FirebaseException) {
+      return FirebaseExceptionHandler().handleError(error);
+    }
+
+    return GenericException().handleError(error);
+  }
+}

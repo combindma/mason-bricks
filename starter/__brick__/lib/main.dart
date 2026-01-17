@@ -8,14 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'bootstrap/providers.dart';
 import 'config/app_config.dart';
-import 'core/helpers/device_helper.dart';
+import 'core/utils/device_helper.dart';
 import 'core/logging/provider_observer.dart';
 import 'core/services/remote_config_service.dart';
 import 'core/services/theme_service.dart';
 import 'routes/app_router.dart';
 import 'shared/theme/theme.dart';
-import 'shared/widgets/app_error_listener.dart';
-import 'shared/widgets/show_alert_dialog.dart';
+import 'core/helpers/app_error_listener.dart';
+import 'core/helpers/show_alert_dialog.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

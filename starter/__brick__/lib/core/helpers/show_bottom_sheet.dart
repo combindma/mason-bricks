@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/helpers/device_helper.dart';
-import '../utils/spacing.dart';
+import '../utils/device_helper.dart';
+import '../../shared/theme/spacing.dart';
 
 Future<void> showAppBottomSheet<T>({
   required BuildContext context,

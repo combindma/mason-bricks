@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/spacing.dart';
+import '../theme/spacing.dart';
 
 
 class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
