@@ -42,7 +42,9 @@ Future<void> main() async {
   FlutterNativeSplash.remove();
   runApp(
     ProviderScope(
-      observers: [AppObserver()],
+      observers: [
+        AppObserver()
+      ],
       child: const MyApp(),
     ),
   );
@@ -53,9 +55,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final rootKey = ref.watch(rootNavigatorKeyProvider);
     final router = ref.watch(routerProvider);
     final themeMode = ref.watch(themeSwitcherProvider);
-    final rootKey = ref.watch(rootNavigatorKeyProvider);
 
     return _EagerInitialization(
       child: MaterialApp.router(
@@ -105,8 +107,6 @@ class _EagerInitialization extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Example: ref.watch(authListenerProvider);
-    // Example: ref.watch(analyticsProvider);
     return child;
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import '../../../../routes/routes.dart';
+import '../controllers/onboarding_controller.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return IntroductionScreen(
       pages: [
         PageViewModel(
@@ -30,19 +30,7 @@ class OnboardingScreen extends StatelessWidget {
       showNextButton: true,
       next: const Text('Next'),
       done: const Text('Get Started'),
-      onDone: () => _onDone(context),
+      onDone: () => ref.read(onboardingControllerProvider.notifier).completeOnboarding(),
     );
-  }
-
-  void _onDone(BuildContext context) async {
-    await _changeOnboardingInitialStatus();
-    if(context.mounted) {
-      context.goNamed(Routes.signup);
-    }
-  }
-
-  Future<void> _changeOnboardingInitialStatus() async {
-    //final sh = await SharedPreferences.getInstance();
-    //sh.setBool(hasOnboardingInitialized, true);
   }
 }
