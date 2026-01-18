@@ -31,20 +31,13 @@ final routerProvider = Provider<GoRouter>(isAutoDispose: true, (ref) {
     initialLocation: Routes.home.path,
     refreshListenable: authNotifier,
     redirect: (BuildContext context, GoRouterState state) {
-      // CRITICAL: Use ref.read here to get the FRESH auth state
-      // immediately when the redirect triggers.
+      // CRITICAL: Use ref.read here to get the FRESH auth state, immediately when the redirect triggers.
       final authState = ref.read(authNotifierProvider);
       return handleRedirect(context, state, onboardingState, authState);
     },
     routes: [
-      /***************
-       * Loading/Onboarding
-       ***************/
       GoRoute(name: Routes.loading.name, path: Routes.loading.path, builder: (context, state) => const SplashScreenComponent()),
       GoRoute(name: Routes.onboarding.name, path: Routes.onboarding.path, builder: (context, state) => const OnboardingScreen()),
-      /***************
-       * Home
-       ***************/
       StatefulShellRoute.indexedStack(
         builder: (context, GoRouterState state, StatefulNavigationShell navigationShell) {
           return MainScreen(navigationShell: navigationShell);
