@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../shared/ui/splash_screen.dart';
+import '../src/auth/presentation/controllers/auth_notifier_provider.dart';
+import '../src/auth/presentation/controllers/auth_state.dart';
 import '../src/auth/presentation/screens/login_screen.dart';
 import '../src/auth/presentation/screens/signup_screen.dart';
 import '../src/home/presentation/screens/home_screen.dart';
@@ -21,21 +23,24 @@ final rootNavigatorKeyProvider = Provider<GlobalKey<NavigatorState>>(isAutoDispo
 final routerProvider = Provider<GoRouter>(isAutoDispose: true, (ref) {
   final rootKey = ref.watch(rootNavigatorKeyProvider);
   final onboardingState = ref.watch(onboardingProvider);
+  final authNotifier = ref.read(authNotifierProvider.notifier);
 
   return GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: rootKey,
     initialLocation: Routes.home.path,
-    redirect: (BuildContext context, GoRouterState state) => handleRedirect(context, state, onboardingState),
+    refreshListenable: authNotifier,
+    redirect: (BuildContext context, GoRouterState state) {
+      // CRITICAL: Use ref.read here to get the FRESH auth state
+      // immediately when the redirect triggers.
+      final authState = ref.read(authNotifierProvider);
+      return handleRedirect(context, state, onboardingState, authState);
+    },
     routes: [
       /***************
        * Loading/Onboarding
        ***************/
-      GoRoute(
-        name: Routes.loading.name,
-        path: Routes.loading.path,
-        builder: (context, state) => const SplashScreenComponent(),
-      ),
+      GoRoute(name: Routes.loading.name, path: Routes.loading.path, builder: (context, state) => const SplashScreenComponent()),
       GoRoute(name: Routes.onboarding.name, path: Routes.onboarding.path, builder: (context, state) => const OnboardingScreen()),
       /***************
        * Home

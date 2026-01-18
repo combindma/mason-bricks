@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../bootstrap/error_provider.dart';
+import '../../bootstrap/providers.dart';
 
 
 /*

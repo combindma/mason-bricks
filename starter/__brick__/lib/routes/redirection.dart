@@ -1,16 +1,42 @@
-part of 'app_router.dart';
+part of 'go_router.dart';
 
-FutureOr<String?> handleRedirect(BuildContext context, GoRouterState state, AsyncValue<bool> onboardingState) {
+FutureOr<String?> handleRedirect(BuildContext context, GoRouterState state, AsyncValue<bool> onboardingState, AuthState authState) {
   final isGoingToLoading = state.matchedLocation == Routes.loading.path;
   final isGoingToOnboarding = state.matchedLocation == Routes.onboarding.path;
+  final isGoingToLogin = state.matchedLocation == Routes.login.path;
 
-  if (onboardingState.isLoading) return Routes.loading.path;
-  //if (onboardingState.hasError) return '/error';
-  final hasSeen = onboardingState.value ?? false;
+  final isAuthenticating = switch (authState) {
+    AuthStateAuthenticating() => true,
+    _ => false,
+  };
 
-  if (isGoingToLoading) return hasSeen ? Routes.home.path : Routes.onboarding.path;
-  if (!hasSeen && !isGoingToOnboarding) return Routes.onboarding.path;
-  if (hasSeen && isGoingToOnboarding) return Routes.home.path;
+  final isLoggedIn = switch (authState) {
+    AuthStateAuthenticated() => true,
+    _ => false,
+  };
+
+  if (onboardingState.isLoading || authState == AuthStateInitial()) return Routes.loading.path;
+
+  final hasSeenOnboarding = onboardingState.value ?? false;
+
+  if (!hasSeenOnboarding) {
+    return isGoingToOnboarding ? null : Routes.onboarding.path;
+  }
+
+  if (isGoingToOnboarding && hasSeenOnboarding) {
+    return Routes.login.path;
+  }
+
+  if (isGoingToLoading) {
+    // If they've seen onboarding, default to Home
+    return Routes.home.path;
+  }
+
+  if (isAuthenticating) return null;
+
+  if (isLoggedIn && isGoingToLogin) {
+    return Routes.home.path;
+  }
 
   return null;
 }

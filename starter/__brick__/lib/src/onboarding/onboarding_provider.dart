@@ -2,6 +2,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../bootstrap/providers.dart';
 
+final onboardingProvider = AsyncNotifierProvider<OnboardingState, bool>(isAutoDispose: true, OnboardingState.new);
+
 class OnboardingState extends AsyncNotifier<bool> {
   @override
   Future<bool> build() async{
@@ -15,5 +17,3 @@ class OnboardingState extends AsyncNotifier<bool> {
     state = const AsyncData(true);
   }
 }
-
-final onboardingProvider = AsyncNotifierProvider<OnboardingState, bool>(isAutoDispose: true, OnboardingState.new);

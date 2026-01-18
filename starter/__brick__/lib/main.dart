@@ -17,7 +17,7 @@ import 'core/utils/device_helper.dart';
 import 'core/logging/provider_observer.dart';
 import 'core/services/remote_config_service.dart';
 import 'core/services/theme_service.dart';
-import 'routes/app_router.dart';
+import 'routes/go_router.dart';
 import 'shared/theme/theme.dart';
 import 'core/helpers/app_error_listener.dart';
 import 'core/helpers/show_alert_dialog.dart';
