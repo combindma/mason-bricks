@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import '../controllers/onboarding_controller.dart';
+import '../../onboarding_provider.dart';
 
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
@@ -30,7 +30,7 @@ class OnboardingScreen extends ConsumerWidget {
       showNextButton: true,
       next: const Text('Next'),
       done: const Text('Get Started'),
-      onDone: () => ref.read(onboardingControllerProvider.notifier).completeOnboarding(),
+      onDone: () => ref.read(onboardingProvider.notifier).completeOnboarding(),
     );
   }
 }

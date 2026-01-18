@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../bootstrap/providers.dart';
+import '../../bootstrap/providers.dart';
 
-class OnboardingController extends AsyncNotifier<bool> {
+class OnboardingState extends AsyncNotifier<bool> {
   @override
   Future<bool> build() async{
     final storage = ref.read(storageServiceProvider);
@@ -16,4 +16,4 @@ class OnboardingController extends AsyncNotifier<bool> {
   }
 }
 
-final onboardingControllerProvider = AsyncNotifierProvider<OnboardingController, bool>(isAutoDispose: true, OnboardingController.new);
+final onboardingProvider = AsyncNotifierProvider<OnboardingState, bool>(isAutoDispose: true, OnboardingState.new);
