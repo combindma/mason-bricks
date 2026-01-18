@@ -28,7 +28,6 @@ FutureOr<String?> handleRedirect(BuildContext context, GoRouterState state, Asyn
   }
 
   if (isGoingToLoading) {
-    // If they've seen onboarding, default to Home
     return Routes.home.path;
   }
 

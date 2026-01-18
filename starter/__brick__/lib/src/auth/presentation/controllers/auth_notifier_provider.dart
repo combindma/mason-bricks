@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../auth_provider.dart';
 import 'auth_state.dart';
 
-final authNotifierProvider = NotifierProvider<AuthNotifier, AuthState>(isAutoDispose: false, () => AuthNotifier());
+final authNotifierProvider = NotifierProvider<AuthNotifier, AuthState>(isAutoDispose: false, () => AuthNotifier()..checkIfAuthenticated());
 
 class AuthNotifier extends Notifier<AuthState> implements Listenable {
   VoidCallback? _routerListener;
