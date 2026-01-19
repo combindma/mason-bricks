@@ -8,35 +8,20 @@ import '../core/exceptions/index.dart';
 
 final globalErrorProvider = NotifierProvider<GlobalErrorNotifier, ErrorEvent?>(GlobalErrorNotifier.new);
 
-final errorHandlerProvider = Provider<ErrorHandler>((ref) => ErrorHandler(ref));
-
 class GlobalErrorNotifier extends Notifier<ErrorEvent?> {
   @override
   ErrorEvent? build() {
     return null;
   }
 
-  void show(String message, [Object? exception]) {
-    state = ErrorEvent(message, exception);
-  }
-}
-
-class ErrorEvent {
-  final String message;
-  final Object? originalException;
-
-  ErrorEvent(this.message, [this.originalException]);
-}
-
-class ErrorHandler {
-  final Ref _ref;
-
-  ErrorHandler(this._ref);
-
-  String map(Object error, [StackTrace? stackTrace]) {
+  void handle(Object error, [StackTrace? stackTrace]) {
     // You can log the error to Crashlytics/Sentry here using another provider
-    // _ref.read(loggerProvider).log(error, stackTrace);
+    // ref.read(loggerProvider).log(error, stackTrace);
+    final message = _map(error);
+    state = ErrorEvent(message, error);
+  }
 
+  String _map(Object error) {
     if (error is SocketException || error is TimeoutException || error.toString().contains("SocketException")) {
       return NetworkException().handleError(error);
     } else if (error is FirebaseAuthException || error is FirebaseException) {
@@ -45,4 +30,11 @@ class ErrorHandler {
 
     return GenericException().handleError(error);
   }
+}
+
+class ErrorEvent {
+  final String message;
+  final Object? originalException;
+
+  ErrorEvent(this.message, [this.originalException]);
 }

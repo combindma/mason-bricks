@@ -10,7 +10,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-//import 'firebase_options.dart';
 import 'bootstrap/providers.dart';
 import 'config/app_config.dart';
 import 'core/utils/device_helper.dart';
@@ -27,6 +26,7 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp(
+    //TODO
     //options: DefaultFirebaseOptions.currentPlatform,
   );
 

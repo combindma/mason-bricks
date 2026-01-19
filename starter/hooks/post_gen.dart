@@ -10,13 +10,19 @@ void run(HookContext context) async {
     'json_annotation',
     'go_router',
     'dio',
-    'equatable',
     'firebase_core',
+    'cloud_firestore',
     'firebase_auth',
     'firebase_remote_config',
     'firebase_crashlytics',
     'firebase_analytics',
     'firebase_messaging',
+    'firebase_performance',
+    'firebase_app_check',
+    'google_sign_in',
+    'sign_in_with_apple',
+    'flutter_local_notifications',
+    'equatable',
     'intl',
     'flutter_dotenv',
     'shared_preferences',
@@ -35,12 +41,12 @@ void run(HookContext context) async {
     'infinite_scroll_pagination',
   ];
   final devDependencies = [
-    'riverpod_lint',
-    'mockito',
+    //'riverpod_lint',
     'build_runner',
     'freezed',
     'json_serializable',
     'flutter_launcher_icons',
+    'mockito',
   ];
 
   final progress = context.logger.progress('Adding dependencies...');

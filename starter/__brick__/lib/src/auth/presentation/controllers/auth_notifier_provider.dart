@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../bootstrap/providers.dart';
 import '../../auth_provider.dart';
 import 'auth_state.dart';
 
@@ -25,8 +26,9 @@ class AuthNotifier extends Notifier<AuthState> implements Listenable {
       } else {
         state = const AuthStateUnauthenticated();
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
       state = const AuthStateUnauthenticated();
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
     } finally {
       _routerListener?.call();
     }
@@ -38,27 +40,57 @@ class AuthNotifier extends Notifier<AuthState> implements Listenable {
       final auth = ref.read(authServiceProvider);
       await auth.signInWithEmailAndPassword(email: email, password: password);
       state = const AuthStateAuthenticated();
-    } catch (e) {
+    } catch (e, stackTrace) {
       state = const AuthStateUnauthenticated();
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
     }
     _routerListener?.call();
   }
 
-  Future<void> signup({required String email, required String password}) async {
+  Future<void> loginWithGoogle() async {
     state = const AuthStateAuthenticating();
     try {
       final auth = ref.read(authServiceProvider);
-      await auth.register(email: email, password: password);
+      await auth.signInWithGoogle();
       state = const AuthStateAuthenticated();
-    } catch (e) {
+    } catch (e, stackTrace) {
       state = const AuthStateUnauthenticated();
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
+    }
+    _routerListener?.call();
+  }
+
+  Future<void> signup({required String name, required String email, required String password}) async {
+    state = const AuthStateAuthenticating();
+    try {
+      final auth = ref.read(authServiceProvider);
+      await auth.register(name: name, email: email, password: password);
+      state = const AuthStateAuthenticated();
+    } catch (e, stackTrace) {
+      state = const AuthStateUnauthenticated();
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
     }
     _routerListener?.call();
   }
 
   Future<void> logout() async {
-    final auth = ref.read(authServiceProvider);
-    await auth.logout();
+    try {
+      final auth = ref.read(authServiceProvider);
+      await auth.logout();
+    } catch (e, stackTrace) {
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
+    }
+    state = const AuthStateUnauthenticated();
+    _routerListener?.call();
+  }
+
+  Future<void> resetPassword({required String email}) async {
+    try {
+      final auth = ref.read(authServiceProvider);
+      await auth.sendPasswordResetEmail(email: email);
+    } catch (e, stackTrace) {
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
+    }
     state = const AuthStateUnauthenticated();
     _routerListener?.call();
   }
