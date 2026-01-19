@@ -7,6 +7,6 @@ void run(HookContext context) async {
   progressProd.complete();
 
   final progressDev = context.logger.progress('Installing dev packages');
-  await Process.run('flutter', ['pub', 'add' , '--dev','flutter_lints', 'riverpod_lint', 'mockito', 'build_runner', 'freezed', 'json_serializable', 'flutter_launcher_icons']);
+  await Process.run('flutter', ['pub', 'add' , '-d', 'flutter_lints', 'riverpod_lint', 'mockito', 'build_runner', 'freezed', 'json_serializable', 'flutter_launcher_icons']);
   progressDev.complete();
 }
