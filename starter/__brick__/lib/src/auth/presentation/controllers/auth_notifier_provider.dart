@@ -60,6 +60,19 @@ class AuthNotifier extends Notifier<AuthState> implements Listenable {
     _routerListener?.call();
   }
 
+  Future<void> loginWithApple() async {
+    state = const AuthStateAuthenticating();
+    try {
+      final auth = ref.read(authServiceProvider);
+      await auth.signInWithApple();
+      state = const AuthStateAuthenticated();
+    } catch (e, stackTrace) {
+      state = const AuthStateUnauthenticated();
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
+    }
+    _routerListener?.call();
+  }
+
   Future<void> signup({required String name, required String email, required String password}) async {
     state = const AuthStateAuthenticating();
     try {

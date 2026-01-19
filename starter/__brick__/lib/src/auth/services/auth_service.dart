@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -30,10 +35,48 @@ class AuthService {
     return userCredential;
   }
 
+  Future<UserCredential> signInWithApple() async {
+    final rawNonce = _generateNonce();
+    final sha256Nonce = sha256.convert(utf8.encode(rawNonce)).toString();
+
+    final AuthorizationCredentialAppleID appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: sha256Nonce,
+    );
+    final oauthCredential = OAuthProvider("apple.com").credential(
+      idToken: appleCredential.identityToken,
+      rawNonce: rawNonce,
+    );
+
+    final userCredential = await _firebaseAuth.signInWithCredential(oauthCredential);
+    final User? user = userCredential.user;
+    if (user != null) {
+      String displayName = '';
+      if (appleCredential.givenName != null) {
+        displayName = '${appleCredential.givenName} ${appleCredential.familyName ?? ''}'.trim();
+      }
+      _createUser(user, displayName, 'apple');
+    }
+
+    return userCredential;
+  }
+
   Future<UserCredential> register({required String name, required String email, required String password}) async {
     final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
     await _createUser(userCredential.user!, name, 'email');
     return userCredential;
+  }
+
+  Future<void> logout() async {
+    await _firebaseAuth.signOut();
+    await _googleSignIn.signOut();
+  }
+
+  Future<void> sendPasswordResetEmail({required String email}) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> _createUser(User user, String? name, String provider) async {
@@ -51,11 +94,10 @@ class AuthService {
     }
   }
 
-  Future<void> logout() async {
-    await _firebaseAuth.signOut();
-  }
-
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  // Helper function to generate random string for Apple Sign In
+  String _generateNonce([int length = 32]) {
+    const charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
   }
 }

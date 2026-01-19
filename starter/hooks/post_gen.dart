@@ -23,6 +23,7 @@ void run(HookContext context) async {
     'sign_in_with_apple',
     'flutter_local_notifications',
     'equatable',
+    'crypto',
     'intl',
     'flutter_dotenv',
     'shared_preferences',
