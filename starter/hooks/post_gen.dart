@@ -3,7 +3,7 @@ import 'package:mason/mason.dart';
 
 void run(HookContext context) async {
   final dependencies = [
-    'flutter_localizations',
+    //'flutter_localizations',
     'hooks_riverpod',
     'flutter_hooks',
     'freezed_annotation',
