@@ -34,7 +34,6 @@ void run(HookContext context) async {
     'infinite_scroll_pagination',
   ];
   final devDependencies = [
-    'flutter_lints',
     'riverpod_lint',
     'mockito',
     'build_runner',
