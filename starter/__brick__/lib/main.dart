@@ -15,12 +15,12 @@ import 'bootstrap/providers.dart';
 import 'config/app_config.dart';
 import 'core/utils/device_helper.dart';
 import 'core/logging/provider_observer.dart';
-import 'core/services/remote_config_service.dart';
-import 'core/services/theme_service.dart';
 import 'routes/go_router.dart';
 import 'shared/theme/theme.dart';
 import 'core/helpers/app_error_listener.dart';
 import 'core/helpers/show_alert_dialog.dart';
+import 'shared/ui/error_screen.dart';
+import 'shared/ui/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +30,7 @@ Future<void> main() async {
     //options: DefaultFirebaseOptions.currentPlatform,
   );
 
+
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
@@ -38,7 +39,6 @@ Future<void> main() async {
     return true;
   };
 
-  await RemoteConfigService.init();
   FlutterNativeSplash.remove();
   runApp(
     ProviderScope(
@@ -57,12 +57,13 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final rootKey = ref.watch(rootNavigatorKeyProvider);
     final router = ref.watch(routerProvider);
-    final themeMode = ref.watch(themeSwitcherProvider);
+    final themeController = ref.watch(themeControllerProvider);
+    final config = ref.watch(remoteConfigProvider);
 
     return _EagerInitialization(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        themeMode: themeMode.flutterThemeMode,
+        themeMode: themeController.requireValue.flutterThemeMode,
         theme: BaseTheme.light,
         darkTheme: BaseTheme.dark,
         supportedLocales: const [Locale('fr')],
@@ -77,7 +78,7 @@ class MyApp extends ConsumerWidget {
           return ForceUpdateWidget(
             navigatorKey: rootKey,
             forceUpdateClient: ForceUpdateClient(
-              fetchRequiredVersion: () async => RemoteConfigService.requiredMinVersion,
+              fetchRequiredVersion: () async => config.requireValue.requiredMinVersion,
               iosAppStoreId: AppConfig.iosAppStoreId,
             ),
             allowCancel: false,
@@ -107,6 +108,14 @@ class _EagerInitialization extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final remoteConfig = ref.watch(remoteConfigProvider);
+    final themeController = ref.watch(themeControllerProvider);
+
+    if (remoteConfig.isLoading || themeController.isLoading) {
+      return const SplashScreenComponent();
+    } else if (remoteConfig.hasError || themeController.hasError) {
+      return const ErrorScreenComponent();
+    }
     return child;
   }
 }

@@ -1,40 +1,46 @@
+import 'dart:async';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../core/services/theme_service.dart';
 
-final themeServiceProvider = Provider<ThemeService>(isAutoDispose: false, (ref) => ThemeService(ref));
+import '../core/enums/theme_mode.dart';
+import 'storage_provider.dart';
 
-final themeSwitcherProvider = NotifierProvider<ThemeSwitcher, AppThemeMode>(isAutoDispose: false, ThemeSwitcher.new);
+final themeControllerProvider = AsyncNotifierProvider<ThemeController, AppThemeMode>(isAutoDispose: false, ThemeController.new);
 
-class ThemeSwitcher extends Notifier<AppThemeMode> {
+class ThemeController extends AsyncNotifier<AppThemeMode> {
   @override
-  AppThemeMode build() {
-    return AppThemeMode.system;
-    //TODO
-    /*final savedThemeMode = ref.read(themeServiceProvider).getThemeMode();
+  FutureOr<AppThemeMode> build() async{
+    final storage = ref.read(storageServiceProvider);
+    final savedThemeMode = await storage.getString('theme');
     if (savedThemeMode == null) {
       return AppThemeMode.system;
     }
-    return AppThemeModeExtension.fromString(savedThemeMode);*/
+    return AppThemeMode.fromString(savedThemeMode);
   }
 
-  void toggle(String? value) {
-    final selectedValue = AppThemeModeExtension.fromString(value ?? 'system');
-    state = selectedValue;
-    ref.read(themeServiceProvider).changeTheme(selectedValue);
+  Future<void> saveTheme(String value) async {
+    final storage = ref.read(storageServiceProvider);
+    await storage.save('theme', value);
   }
 
-  void toggleDark() {
-    state = AppThemeMode.dark;
-    ref.read(themeServiceProvider).changeTheme(AppThemeMode.dark);
+  Future<void> toggle(String? value) async{
+    final selectedValue = AppThemeMode.fromString(value ?? 'system');
+    state = AsyncData(selectedValue);
+    await saveTheme(selectedValue.name);
   }
 
-  void toggleLight() {
-    state = AppThemeMode.light;
-    ref.read(themeServiceProvider).changeTheme(AppThemeMode.light);
+  Future<void> toggleDark() async{
+    state = AsyncData(AppThemeMode.dark);
+    await saveTheme(AppThemeMode.dark.name);
   }
 
-  void toggleSystem() {
-    state = AppThemeMode.system;
-    ref.read(themeServiceProvider).changeTheme(AppThemeMode.system);
+  Future<void> toggleLight() async{
+    state = AsyncData(AppThemeMode.light);
+    await saveTheme(AppThemeMode.light.name);
+  }
+
+  Future<void> toggleSystem() async{
+    state = AsyncData(AppThemeMode.system);
+    await saveTheme(AppThemeMode.system.name);
   }
 }
