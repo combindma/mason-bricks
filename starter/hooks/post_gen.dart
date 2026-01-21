@@ -28,7 +28,6 @@ void run(HookContext context) async {
     'flutter_dotenv',
     'shared_preferences',
     'flutter_secure_storage',
-    'flutter_native_splash',
     'logger',
     'device_info_plus',
     'url_launcher',
@@ -46,6 +45,7 @@ void run(HookContext context) async {
     'build_runner',
     'freezed',
     'json_serializable',
+    'flutter_native_splash',
     'flutter_launcher_icons',
     'mockito',
   ];
