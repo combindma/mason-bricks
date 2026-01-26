@@ -3,7 +3,6 @@ import 'package:mason/mason.dart';
 
 void run(HookContext context) async {
   final dependencies = [
-    //'flutter_localizations',
     'hooks_riverpod',
     'flutter_hooks',
     'freezed_annotation',
@@ -21,10 +20,10 @@ void run(HookContext context) async {
     'firebase_app_check',
     'google_sign_in',
     'sign_in_with_apple',
-    'flutter_local_notifications',
+    'package_info_plus',
     'equatable',
     'crypto',
-    'intl',
+    'easy_localization',
     'flutter_dotenv',
     'shared_preferences',
     'flutter_secure_storage',
@@ -33,15 +32,19 @@ void run(HookContext context) async {
     'url_launcher',
     'force_update_helper',
     'cached_network_image',
+    'connectivity_plus',
     'form_builder_validators',
     'flutter_svg',
+    'google_fonts',
+    'hugeicons',
+    'font_awesome_flutter',
     'introduction_screen',
     'share_plus',
     'shimmer',
     'infinite_scroll_pagination',
+    'country_picker',
   ];
   final devDependencies = [
-    //'riverpod_lint',
     'build_runner',
     'freezed',
     'json_serializable',

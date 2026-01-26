@@ -12,7 +12,7 @@ enum AppThemeMode {
     );
   }
 
-  ThemeMode get flutterThemeMode {
+  ThemeMode get savedThemeMode {
     switch (this) {
       case AppThemeMode.light: return ThemeMode.light;
       case AppThemeMode.dark: return ThemeMode.dark;

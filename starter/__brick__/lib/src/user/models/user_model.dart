@@ -1,25 +1,26 @@
-import 'user.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UserModel extends User {
-  const UserModel({required super.id, required super.name, required super.email});
+import '../../../core/utils/timestamp_converter.dart';
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(id: json['id'] as String, name: json['name'] as String, email: json['email'] as String);
-  }
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': super.id,
-      'name': super.name,
-      'email': super.email,
-    };
-  }
-
-  UserModel copyWith({
-    String? id,
+@freezed
+abstract class UserModel with _$UserModel {
+  const factory UserModel({
+    required String id,
     String? name,
-    String? email,
-}) {
-    return UserModel(id: id?? super.id, name: name?? super.name, email: email?? super.email);
-  }
+    required String email,
+    String? phone,
+    String? address,
+    String? city,
+    String? zipCode,
+    String? country,
+    String? photoUrl,
+    @Default('email') String provider,
+    @TimestampConverter() DateTime? createdAt,
+  }) = _UserModel;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/extensions.dart';
 import 'svg_logo.dart';
 
 class SplashScreenComponent extends StatelessWidget {
@@ -9,7 +11,7 @@ class SplashScreenComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(14.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
             const Expanded(
@@ -17,11 +19,12 @@ class SplashScreenComponent extends StatelessWidget {
                 child: SvgLogoComponent(width: 180),
               ),
             ),
-            const SizedBox(height: 20),
             Center(
-              child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onSurface),
+              child: CircularProgressIndicator.adaptive(),
             ),
-            const SizedBox(height: 90),
+            const SizedBox(height: 40),
+            Text('copyright_splash', style: context.bodySmall,).tr(),
+            const SizedBox(height: 60),
           ],
         ),
       ),

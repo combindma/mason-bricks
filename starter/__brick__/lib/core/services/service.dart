@@ -1,12 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../bootstrap/providers.dart';
-import 'api_service.dart';
 
 abstract class Service {
-  Service(this.ref);
-  final Ref ref;
+  Service(this._ref);
+  final Ref _ref;
 
-  ApiService get api => ref.read(apiServiceProvider);
-  StorageService get storage => ref.read(storageServiceProvider);
+  //ApiService get _api => ref.read(apiServiceProvider);
+  StorageService get storage => _ref.read(storageServiceProvider);
 }

@@ -9,38 +9,42 @@ final themeControllerProvider = AsyncNotifierProvider<ThemeController, AppThemeM
 
 class ThemeController extends AsyncNotifier<AppThemeMode> {
   @override
-  FutureOr<AppThemeMode> build() async{
-    final storage = ref.read(storageServiceProvider);
-    final savedThemeMode = await storage.getString('theme');
-    if (savedThemeMode == null) {
+  Future<AppThemeMode> build() async{
+    try {
+      final storage = ref.read(storageServiceProvider);
+      final savedThemeMode = await storage.getString('theme');
+      if (savedThemeMode == null) {
+        return AppThemeMode.system;
+      }
+      return AppThemeMode.fromString(savedThemeMode);
+    } catch (_) {
       return AppThemeMode.system;
     }
-    return AppThemeMode.fromString(savedThemeMode);
   }
 
-  Future<void> saveTheme(String value) async {
+  Future<void> _saveTheme(String value) async {
     final storage = ref.read(storageServiceProvider);
     await storage.save('theme', value);
   }
 
   Future<void> toggle(String? value) async{
     final selectedValue = AppThemeMode.fromString(value ?? 'system');
+    await _saveTheme(selectedValue.name);
     state = AsyncData(selectedValue);
-    await saveTheme(selectedValue.name);
   }
 
   Future<void> toggleDark() async{
+    await _saveTheme(AppThemeMode.dark.name);
     state = AsyncData(AppThemeMode.dark);
-    await saveTheme(AppThemeMode.dark.name);
   }
 
   Future<void> toggleLight() async{
+    await _saveTheme(AppThemeMode.light.name);
     state = AsyncData(AppThemeMode.light);
-    await saveTheme(AppThemeMode.light.name);
   }
 
   Future<void> toggleSystem() async{
+    await _saveTheme(AppThemeMode.system.name);
     state = AsyncData(AppThemeMode.system);
-    await saveTheme(AppThemeMode.system.name);
   }
 }

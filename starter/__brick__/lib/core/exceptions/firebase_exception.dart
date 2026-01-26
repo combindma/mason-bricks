@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'base_exception.dart';
@@ -12,32 +13,72 @@ class FirebaseExceptionHandler implements BaseException {
       final message = _handleFirebaseException(error);
       return message;
     }
-    return 'An error occurred';
+    return 'errors.unknown'.tr();
   }
 
   String _handleFirebaseAuthException(FirebaseAuthException error) {
     switch (error.code) {
+    // Login errors
       case 'user-not-found':
-        return 'No user found for that email.';
+        return 'errors.auth.user_not_found'.tr();
       case 'wrong-password':
-        return 'Wrong password provided for that user.';
-      case 'email-already-in-use':
-        return 'The account already exists for that email.';
+        return 'errors.auth.wrong_password'.tr();
+      case 'invalid-credential':
+        return 'errors.auth.invalid_credential'.tr();
       case 'invalid-email':
-        return 'The email address is badly formatted.';
+        return 'errors.auth.invalid_email'.tr();
+      case 'user-disabled':
+        return 'errors.auth.user_disabled'.tr();
+
+    // Registration errors
+      case 'email-already-in-use':
+        return 'errors.auth.email_in_use'.tr();
       case 'weak-password':
-        return 'The password is too weak.';
+        return 'errors.auth.weak_password'.tr();
+      case 'operation-not-allowed':
+        return 'errors.auth.operation_not_allowed'.tr();
+
+    // Rate limiting / security
+      case 'too-many-requests':
+        return 'errors.auth.too_many_requests'.tr();
+      case 'network-request-failed':
+        return 'errors.auth.network_error'.tr();
+
+    // Token / session errors
+      case 'expired-action-code':
+        return 'errors.auth.expired_code'.tr();
+      case 'invalid-action-code':
+        return 'errors.auth.invalid_code'.tr();
+      case 'session-expired':
+        return 'errors.auth.session_expired'.tr();
+
+    // Account linking
+      case 'account-exists-with-different-credential':
+        return 'errors.auth.account_exists_different_credential'.tr();
+      case 'credential-already-in-use':
+        return 'errors.auth.credential_in_use'.tr();
+
+    // Reauthentication
+      case 'requires-recent-login':
+        return 'errors.auth.requires_recent_login'.tr();
+
       default:
-        return 'An error occurred';
+        return 'errors.auth.generic'.tr();
     }
   }
 
   String _handleFirebaseException(FirebaseException error) {
     switch (error.code) {
       case 'permission-denied':
-        return 'Permission denied';
+        return 'errors.firebase.permission_denied'.tr();
+      case 'unavailable':
+        return 'errors.firebase.unavailable'.tr();
+      case 'cancelled':
+        return 'errors.firebase.cancelled'.tr();
+      case 'not-found':
+        return 'errors.firebase.not_found'.tr();
       default:
-        return 'An error occurred';
+        return 'errors.firebase.generic'.tr();
     }
   }
 }

@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 class BaseAppBarTheme {
   BaseAppBarTheme._();
 
-  static const AppBarTheme lightTheme = AppBarTheme(
-    elevation: 2.0,
+  static AppBarTheme lightTheme = AppBarTheme(
+    elevation: 0,
     centerTitle: false,
     scrolledUnderElevation: 0,
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.white,
     surfaceTintColor: Colors.transparent,
-    iconTheme: IconThemeData(color: Colors.black, size: 24),
+    iconTheme: IconThemeData(color: Colors.black, size: 18),
     actionsIconTheme: IconThemeData(color: Colors.black, size: 24),
     titleTextStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.black),
   );
 
-  static const AppBarTheme darkTheme = AppBarTheme(
-    elevation: 2.0,
+  static AppBarTheme darkTheme = AppBarTheme(
+    elevation: 0,
     centerTitle: false,
     scrolledUnderElevation: 0,
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.black,
     surfaceTintColor: Colors.transparent,
-    iconTheme: IconThemeData(color: Colors.black, size: 24),
+    iconTheme: IconThemeData(color: Colors.white, size: 18),
     actionsIconTheme: IconThemeData(color: Colors.white, size: 24),
     titleTextStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.white),
   );

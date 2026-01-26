@@ -1,12 +1,29 @@
 include: package:flutter_lints/flutter.yaml
-linter:
-  rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 analyzer:
+  plugins:
+    riverpod_lint: 3.1.2
   errors:
     invalid_annotation_target: ignore
-  plugins:
-    - riverpod_lint
-plugins:
-  riverpod_lint: 3.1.0
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+linter:
+  rules:
+    # Style
+    #prefer_single_quotes: true
+    #always_use_package_imports: true
+    #avoid_print: true
+    #prefer_const_constructors: true
+    #prefer_const_declarations: true
+    #prefer_final_locals: true
+
+    # Safety
+    avoid_dynamic_calls: true
+    cancel_subscriptions: true
+    close_sinks: true
+
+custom_lint:
+  rules:
+    - riverpod_final_provider: true
+    - scoped_providers_should_specify_dependencies: true

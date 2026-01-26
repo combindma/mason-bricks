@@ -5,10 +5,13 @@ class BaseTextFieldTheme {
 
   static InputDecorationTheme lightTheme = InputDecorationTheme(
     errorMaxLines: 3,
+    filled: true,
+    isDense: true,
+    fillColor: Colors.white,
     prefixIconColor: Colors.grey,
     suffixIconColor: Colors.grey,
     labelStyle: const TextStyle().copyWith(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black54),
-    hintStyle: const TextStyle().copyWith(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
+    hintStyle: const TextStyle().copyWith(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
     errorStyle: const TextStyle().copyWith(color: Colors.red.shade700),
     floatingLabelStyle: const TextStyle().copyWith(color: Colors.black.withValues(alpha: 0.8)),
     border: const OutlineInputBorder().copyWith(
@@ -35,10 +38,13 @@ class BaseTextFieldTheme {
 
   static InputDecorationTheme darkTheme = InputDecorationTheme(
     errorMaxLines: 3,
+    filled: true,
+    isDense: true,
+    fillColor: Colors.grey.shade900,
     prefixIconColor: Colors.grey,
     suffixIconColor: Colors.grey,
     labelStyle: const TextStyle().copyWith(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
-    hintStyle: const TextStyle().copyWith(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+    hintStyle: const TextStyle().copyWith(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey.shade400),
     errorStyle: const TextStyle().copyWith(color: Colors.red.shade700),
     floatingLabelStyle: const TextStyle().copyWith(color: Colors.white),
     border: const OutlineInputBorder().copyWith(

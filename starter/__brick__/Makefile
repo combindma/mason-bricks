@@ -5,15 +5,16 @@ help:
 	@echo "--------------------------------------------------------------------------------"
 	@echo "                           FLUTTER MAKEFILE HELP"
 	@echo "--------------------------------------------------------------------------------"
-	@echo "make clean     - Clean project and get dependencies"
-	@echo "make check     - Run format, analyze, and test (Pre-commit)"
-	@echo "make gen       - Run build_runner build (delete conflicting outputs)"
-	@echo "make watch     - Run build_runner watch (delete conflicting outputs)"
-	@echo "make feature   - Create a mason feature"
-	@echo "make launcher  - Generate launcher icons"
-	@echo "make splash    - Generate native splash screen"
-	@echo "make pod       - Install iOS pods"
-	@echo "make pod-clean - Nuke iOS Pods/Lockfile and reinstall (Fixes iOS issues)"
+	@echo "make clean     	- Clean project and get dependencies"
+	@echo "make check     	- Run format, analyze, and test (Pre-commit)"
+	@echo "make gen       	- Run build_runner build (delete conflicting outputs)"
+	@echo "make watch     	- Run build_runner watch (delete conflicting outputs)"
+	@echo "make feature   	- Create a mason feature"
+	@echo "make launcher  	- Generate launcher icons"
+	@echo "make splash    	- Generate native splash screen"
+	@echo "make pod       	- Install iOS pods"
+	@echo "make pod-update  - Update iOS pods"
+	@echo "make pod-clean 	- Nuke iOS Pods/Lockfile and reinstall (Fixes iOS issues)"
 	@echo "make apk"
 	@echo "make android"
 	@echo "make ios"
@@ -36,10 +37,10 @@ watch:
 # --- Asset Generation ---
 
 launcher:
-	flutter pub run flutter_launcher_icons
+	dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
 
 splash:
-	flutter pub run flutter_native_splash:create
+	dart run flutter_native_splash:create --path=flutter_native_splash.yaml
 
 feature:
 	mason make feature
@@ -74,6 +75,8 @@ pod-update:
 # The "Magic Fix" for iOS build errors
 # Deletes Pods folder and Lockfile, then installs
 pod-clean:
+	flutter clean
+	flutter pub get
 	rm -rf ios/Pods
 	rm -f ios/Podfile.lock
 	cd ios && pod install

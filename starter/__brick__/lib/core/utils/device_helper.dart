@@ -4,77 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DeviceHelper {
   DeviceHelper._();
 
-  static void hideKeyboard(BuildContext context) {
-    FocusScope.of(context).requestFocus(FocusNode());
-  }
-
-  static Future<void> setStatusBarColor(Color color) async {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: color),
-    );
-  }
-
-  static bool isLandscapeOrientation(BuildContext context) {
-    final viewInsets = View.of(context).viewInsets;
-    return viewInsets.bottom == 0;
-  }
-
-  static bool isPortraitOrientation(BuildContext context) {
-    final viewInsets = View.of(context).viewInsets;
-    return viewInsets.bottom != 0;
-  }
-
-  static void setFullScreen(bool enable) {
-    SystemChrome.setEnabledSystemUIMode(enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
-  }
-
-  static double pixelRatio(BuildContext context) {
-    return MediaQuery.of(context).devicePixelRatio;
-  }
-
-  static bool isDarkMode(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark;
-  }
-
-  static Size screenSize(BuildContext context) {
-    return MediaQuery.of(context).size;
-  }
-
-  static double screenHeight(BuildContext context) {
-    return MediaQuery.of(context).size.height;
-  }
-
-  static double screenWidth(BuildContext context) {
-    return MediaQuery.of(context).size.width;
-  }
-
-  static double statusBarHeight(BuildContext context) {
-    return MediaQuery.of(context).padding.top;
-  }
-
-  static double bottomNavigationBarHeight() {
-    return kBottomNavigationBarHeight;
-  }
-
-  static double appBarHeight() {
-    return kToolbarHeight;
-  }
-
-  static double keyboardHeight(BuildContext context) {
-    final viewInsets = MediaQuery.of(context).viewInsets;
-    return viewInsets.bottom;
-  }
-
-  static Future<bool> isKeyboardVisible(BuildContext context) async {
+  static bool isKeyboardVisible(BuildContext context) {
     final viewInsets = View.of(context).viewInsets;
     return viewInsets.bottom > 0;
   }
 
-  static Future<bool> isPhysicalDevice() async {
+  static bool isPhysicalDevice() {
     return defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS;
   }
 
@@ -85,6 +25,12 @@ class DeviceHelper {
 
   static Future<void> setPreferredOrientations(List<DeviceOrientation> orientations) async {
     await SystemChrome.setPreferredOrientations(orientations);
+  }
+
+  static Future<void> setStatusBarColor(Color color) async {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: color),
+    );
   }
 
   static void hideStatusBar() {
@@ -104,14 +50,6 @@ class DeviceHelper {
     }
   }
 
-  static bool isIOS() {
-    return Platform.isIOS;
-  }
-
-  static bool isAndroid() {
-    return Platform.isAndroid;
-  }
-
   static Future<bool> launch(Uri uri, [LaunchMode mode = LaunchMode.platformDefault]) async {
     try {
       if (await canLaunchUrl(uri)) {
@@ -124,10 +62,22 @@ class DeviceHelper {
     }
   }
 
+  static Future<bool> launchLink(String url, [LaunchMode mode = LaunchMode.platformDefault]) async {
+    try {
+      if (await canLaunchUrlString(url)) {
+        return await launchUrlString(url, mode: mode);
+      } else {
+        return false;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static Future<String> deviceName() async {
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
-    if(isIOS()){
+    if(Platform.isIOS){
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       return iosInfo.name;
     }

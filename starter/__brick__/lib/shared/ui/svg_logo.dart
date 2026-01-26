@@ -14,11 +14,16 @@ class SvgLogoComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
+    final logo = SvgPicture.asset(
       BaseLogos.svgLogo,
       semanticsLabel: 'Logo ${AppConfig.name}',
       width: width,
       colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.onSurface, BlendMode.srcIn),
     );
+
+    if(logo.width == null || logo.height == null) {
+      return const FlutterLogo(size: 55.0);
+    }
+    return logo;
   }
 }

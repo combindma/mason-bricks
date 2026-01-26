@@ -1,0 +1,134 @@
+{
+  "copyright": "{year} © {appName} - Tous droits réservés.",
+  "copyright_splash": "Réalisé par combind.ma",
+  "copyright_version": "Version {version} - Réalisé par l'équipe combind.ma.",
+  "error_screen": {
+    "title": "Une erreur est survenue",
+    "description": "Désolé ! Une erreur inattendue s'est produite. Veuillez réessayer ou redémarrer l'application.",
+    "action": "Réessayer"
+  },
+  "offline_screen": {
+    "title": "Vous êtes hors ligne",
+    "description": "Impossible de se connecter à Internet. Veuillez vérifier votre réseau et réessayer.",
+    "action": "Réessayer"
+  },
+  "errors": {
+    "unknown": "Une erreur est survenue. Veuillez réessayer.",
+    "auth": {
+      "user_not_found": "Aucun compte trouvé avec cet e-mail.",
+      "wrong_password": "Mot de passe incorrect. Veuillez réessayer.",
+      "invalid_credential": "E-mail ou mot de passe invalide.",
+      "invalid_email": "Veuillez saisir une adresse e-mail valide.",
+      "user_disabled": "Ce compte a été désactivé.",
+      "email_in_use": "Un compte existe déjà avec cet e-mail.",
+      "weak_password": "Le mot de passe doit contenir au moins 6 caractères.",
+      "operation_not_allowed": "Cette méthode de connexion n'est pas activée.",
+      "too_many_requests": "Trop de tentatives. Veuillez réessayer plus tard.",
+      "network_error": "Erreur réseau. Vérifiez votre connexion.",
+      "expired_code": "Ce lien a expiré. Veuillez en demander un nouveau.",
+      "invalid_code": "Lien invalide. Veuillez en demander un nouveau.",
+      "session_expired": "Session expirée. Veuillez vous reconnecter.",
+      "account_exists_different_credential": "Un compte existe déjà avec cet e-mail utilisant une méthode de connexion différente.",
+      "credential_in_use": "Cet identifiant est déjà lié à un autre compte.",
+      "requires_recent_login": "Veuillez vous reconnecter pour effectuer cette action.",
+      "generic": "L'authentification a échoué. Veuillez réessayer."
+    },
+    "network": {
+      "no_internet": "Pas de connexion Internet. Veuillez vérifier votre réseau.",
+      "timeout": "Délai d'attente dépassé. Veuillez réessayer.",
+      "connection_refused": "Impossible de se connecter au serveur.",
+      "unreachable": "Serveur inaccessible. Veuillez réessayer plus tard.",
+      "ssl": "La connexion sécurisée a échoué. Veuillez réessayer.",
+      "certificate": "Erreur de certificat de sécurité.",
+      "format": "Réponse du serveur invalide.",
+      "not_found": "La ressource demandée est introuvable.",
+      "unauthorized": "Vous n'êtes pas autorisé à effectuer cette action.",
+      "server": "Erreur serveur. Veuillez réessayer plus tard.",
+      "unavailable": "Service temporairement indisponible.",
+      "generic": "Erreur de connexion. Veuillez réessayer."
+    },
+    "firebase": {
+      "permission_denied": "Vous n'avez pas la permission d'effectuer cette action.",
+      "unavailable": "Service temporairement indisponible. Veuillez réessayer.",
+      "cancelled": "Opération annulée.",
+      "not_found": "Données demandées introuvables.",
+      "generic": "Une erreur est survenue. Veuillez réessayer."
+    }
+  },
+  "update_dialog": {
+    "title": "Mise à jour requise",
+    "content": "La version de l'application que vous utilisez n'est plus valide. Veuillez mettre à jour votre application {appName}.",
+    "cancel": "Ignorer",
+    "confirm": "Mettre à jour"
+  },
+  "welcome": {
+    "title": "Bienvenue sur {appName}",
+    "description": "Commencez avec {appName} dès aujourd'hui !",
+    "terms_intro": "En continuant à utiliser {appName}, vous acceptez nos ",
+    "terms_link": "Conditions Générales",
+    "privacy_link": "Politique de Confidentialité."
+  },
+  "login": {
+    "title": "Bon retour parmi nous",
+    "continue_email": "Continuer avec une adresse e-mail",
+    "continue_apple": "Continuer avec Apple",
+    "continue_google": "Continuer avec Google",
+    "have_account": "Vous avez déjà un compte ?",
+    "no_account": "Vous n'avez pas de compte ?"
+  },
+  "reset_password": {
+    "title": "Mot de passe oublié",
+    "description": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "action": "Envoyer le lien",
+    "feedback": "Lien envoyé !",
+    "feedback_description": "Un lien de réinitialisation a été envoyé à votre adresse e-mail. Veuillez vérifier votre boîte de réception."
+  },
+  "signup": {
+    "title": "Créer un compte"
+  },
+  "theme": {
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système (par défaut)"
+  },
+  "delete_account": {
+    "title": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+    "description": "Nous sommes désolés de vous voir partir. Une fois votre compte supprimé, vous ne pourrez ni le réactiver ni récupérer vos données ultérieurement. La suppression de votre compte est définitive et irréversible.",
+    "cancel": "Annuler",
+    "confirm": "Je comprends"
+  },
+  "log in": "Se connecter",
+  "sign up": "S'inscrire",
+  "forgot password": "Mot de passe oublié ?",
+  "email": "E-mail",
+  "your email": "Votre e-mail",
+  "password": "Mot de passe",
+  "your password": "Votre mot de passe",
+  "name": "Nom",
+  "your name": "Votre nom",
+  "phone": "Téléphone",
+  "your phone": "Votre numéro",
+  "address": "Adresse",
+  "city": "Ville",
+  "zip code": "Code postal",
+  "country": "Pays",
+  "search country": "Rechercher un pays",
+  "or": "ou",
+  "and": "et",
+  "home": "Accueil",
+  "account": "Compte",
+  "profile": "Profil",
+  "edit profile": "Modifier le profil",
+  "update profile": "Mettre à jour le profil",
+  "account actions": "Actions du compte",
+  "delete account": "Supprimer le compte",
+  "privacy_policy": "Politique de Confidentialité",
+  "terms_of_service": "Conditions d'Utilisation",
+  "sign out": "Se déconnecter",
+  "log out": "Se déconnecter",
+  "close": "Fermer",
+  "cancel": "Annuler",
+  "confirm": "Confirmer",
+  "appearance": "Apparence",
+  "are you sure you want to log out?": "Êtes-vous sûr de vouloir vous déconnecter ?"
+}

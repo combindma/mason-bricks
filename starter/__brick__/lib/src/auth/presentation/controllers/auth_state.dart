@@ -1,33 +1,23 @@
-import 'package:equatable/equatable.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-sealed class AuthState extends Equatable {
+sealed class AuthState {
   const AuthState();
-}
-
-final class AuthStateInitial extends AuthState {
-  const AuthStateInitial();
-
-  @override
-  List<Object?> get props => [];
 }
 
 final class AuthStateAuthenticating extends AuthState {
   const AuthStateAuthenticating();
-
-  @override
-  List<Object?> get props => [];
 }
 
 final class AuthStateAuthenticated extends AuthState {
   const AuthStateAuthenticated();
-
-  @override
-  List<Object?> get props => [];
 }
 
 final class AuthStateUnauthenticated extends AuthState {
   const AuthStateUnauthenticated();
+}
 
-  @override
-  List<Object?> get props => [];
+extension AsyncAuthStateX on AsyncValue<AuthState> {
+  bool get isAuthenticating => value is AuthStateAuthenticating;
+  bool get isAuthenticated => value is AuthStateAuthenticated;
+  bool get isUnauthenticated => value is AuthStateUnauthenticated;
 }

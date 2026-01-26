@@ -28,9 +28,14 @@ class OnboardingScreen extends ConsumerWidget {
         ),
       ],
       showNextButton: true,
+      showBackButton: true,
+      showSkipButton: true,
+      back: const Icon(Icons.arrow_back),
       next: const Text('Next'),
       done: const Text('Get Started'),
+      skip: const Text('Skip'),
       onDone: () => ref.read(onboardingProvider.notifier).completeOnboarding(),
+      onSkip: () => ref.read(onboardingProvider.notifier).completeOnboarding(),
     );
   }
 }

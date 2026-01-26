@@ -26,4 +26,6 @@ class RemoteConfigService {
   RemoteConfigService(this._remoteConfig);
 
   String get requiredMinVersion => _remoteConfig.getString('requiredMinVersion');
+  String get privacyUrl => _remoteConfig.getString('privacyUrl');
+  String get cgvUrl => _remoteConfig.getString('cgvUrl');
 }

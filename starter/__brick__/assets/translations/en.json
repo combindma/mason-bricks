@@ -1,0 +1,134 @@
+{
+  "copyright": "{year} © {appName} - All rights reserved.",
+  "copyright_splash": "Made by combind.ma",
+  "copyright_version": "Version {version} - Made by combind.ma team.",
+  "error_screen": {
+    "title": "Something went wrong",
+    "description": "Sorry about that! An unexpected error popped up. Please try again or give the app a quick restart.",
+    "action": "Try again"
+  },
+  "offline_screen": {
+    "title": "You are offline",
+    "description": "Could not connect to the internet. Please check your network and try again.",
+    "action": "Try again"
+  },
+  "errors": {
+    "unknown": "Something went wrong. Please try again.",
+    "auth": {
+      "user_not_found": "No account found with this email.",
+      "wrong_password": "Incorrect password. Please try again.",
+      "invalid_credential": "Invalid email or password.",
+      "invalid_email": "Please enter a valid email address.",
+      "user_disabled": "This account has been disabled.",
+      "email_in_use": "An account already exists with this email.",
+      "weak_password": "Password must be at least 6 characters.",
+      "operation_not_allowed": "This sign-in method is not enabled.",
+      "too_many_requests": "Too many attempts. Please try again later.",
+      "network_error": "Network error. Check your connection.",
+      "expired_code": "This link has expired. Please request a new one.",
+      "invalid_code": "Invalid link. Please request a new one.",
+      "session_expired": "Session expired. Please sign in again.",
+      "account_exists_different_credential": "An account already exists with this email using a different sign-in method.",
+      "credential_in_use": "This credential is already linked to another account.",
+      "requires_recent_login": "Please sign in again to complete this action.",
+      "generic": "Authentication failed. Please try again."
+    },
+    "network": {
+      "no_internet": "No internet connection. Please check your network.",
+      "timeout": "Request timed out. Please try again.",
+      "connection_refused": "Unable to connect to server.",
+      "unreachable": "Server unreachable. Please try again later.",
+      "ssl": "Secure connection failed. Please try again.",
+      "certificate": "Security certificate error.",
+      "format": "Invalid response from server.",
+      "not_found": "Requested resource not found.",
+      "unauthorized": "You are not authorized to perform this action.",
+      "server": "Server error. Please try again later.",
+      "unavailable": "Service temporarily unavailable.",
+      "generic": "Connection error. Please try again."
+    },
+    "firebase": {
+      "permission_denied": "You don't have permission to perform this action.",
+      "unavailable": "Service temporarily unavailable. Please try again.",
+      "cancelled": "Operation cancelled.",
+      "not_found": "Requested data not found.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "update_dialog": {
+    "title": "App update required",
+    "content": "The app version you have is no longer valid. Please update your {appName} app.",
+    "cancel": "Ignore",
+    "confirm": "Update"
+  },
+  "welcome": {
+    "title": "Welcome to {appName}",
+    "description": "Get started with {appName} today!",
+    "terms_intro": "By continuing to use {appName}, you agree to our ",
+    "terms_link": "Terms and Conditions",
+    "privacy_link": "Privacy Policy."
+  },
+  "login": {
+    "title": "Welcome back",
+    "continue_email": "Continue with an email address",
+    "continue_apple": "Continue with Apple",
+    "continue_google": "Continue with Google",
+    "have_account": "Already have an account?",
+    "no_account": "Don't have an account?"
+  },
+  "reset_password": {
+    "title": "Forgot password",
+    "description": "Enter your email address and we will send you a link to reset your password.",
+    "action": "Send Reset Link",
+    "feedback": "Reset link sent!",
+    "feedback_description": "A password reset link has been sent to your email address. Please check your inbox."
+  },
+  "signup": {
+    "title": "Create account"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System (default)"
+  },
+  "delete_account": {
+    "title": "Are you sure you want to delete your account?",
+    "description": "We're sorry to see you go. Once you delete your account, you cannot reactivate it or get your data back at a later time. Deleting your account is permanent and cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "I understand"
+  },
+  "log in": "Log in",
+  "sign up": "Sign up",
+  "forgot password": "Forgot password?",
+  "email": "Email",
+  "your email": "Your email",
+  "password": "Password",
+  "your password": "Your password",
+  "name": "Name",
+  "your name": "Your name",
+  "phone": "Phone",
+  "your phone": "Your phone",
+  "address": "Address",
+  "city": "City",
+  "zip code": "Zip code",
+  "country": "Country",
+  "search country": "Search country",
+  "or": "or",
+  "and": "and",
+  "home": "Home",
+  "account": "Account",
+  "profile": "Profile",
+  "edit profile": "Edit profile",
+  "update profile": "Update profile",
+  "account actions": "Account actions",
+  "delete account": "Delete account",
+  "privacy_policy": "Privacy Policy",
+  "terms_of_service": "Terms of Service",
+  "sign out": "Sign out",
+  "log out": "Log out",
+  "close": "Close",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "appearance": "Appearance",
+  "are you sure you want to log out?": "Are you sure you want to log out?"
+}

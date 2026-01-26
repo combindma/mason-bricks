@@ -1,40 +1,40 @@
 part of 'go_router.dart';
 
-FutureOr<String?> handleRedirect(BuildContext context, GoRouterState state, AsyncValue<bool> onboardingState, AuthState authState) {
-  final isGoingToLoading = state.matchedLocation == Routes.loading.path;
-  final isGoingToOnboarding = state.matchedLocation == Routes.onboarding.path;
-  final isGoingToLogin = state.matchedLocation == Routes.login.path;
+final protectedRoutes = [
+  Routes.editProfile.path,
+  Routes.deleteAccount.path,
+];
 
-  final isAuthenticating = switch (authState) {
-    AuthStateAuthenticating() => true,
-    _ => false,
-  };
+bool isProtectedRoute(String location) {
+  return protectedRoutes.any((route) => location.startsWith(route));
+}
 
-  final isLoggedIn = switch (authState) {
-    AuthStateAuthenticated() => true,
-    _ => false,
-  };
+FutureOr<String?> handleRedirect(BuildContext context, GoRouterState state, bool hasSeenOnboarding, AuthState authState) {
+  final location = state.matchedLocation;
+  final isAuthenticated = authState is AuthStateAuthenticated;
+  final isAuthenticating = authState is AuthStateAuthenticating;
 
-  if (onboardingState.isLoading || authState == AuthStateInitial()) return Routes.loading.path;
-
-  final hasSeenOnboarding = onboardingState.value ?? false;
+  final isOnboarding = location == Routes.onboarding.path;
+  final isAuthRoute = location == Routes.welcome.path ||
+      location.startsWith(Routes.login.path) ||
+      location.startsWith(Routes.signup.path);
 
   if (!hasSeenOnboarding) {
-    return isGoingToOnboarding ? null : Routes.onboarding.path;
-  }
-
-  if (isGoingToOnboarding && hasSeenOnboarding) {
-    return Routes.login.path;
-  }
-
-  if (isGoingToLoading) {
-    return Routes.home.path;
+    return isOnboarding ? null : Routes.onboarding.path;
   }
 
   if (isAuthenticating) return null;
 
-  if (isLoggedIn && isGoingToLogin) {
+  if (isOnboarding) {
+    return isAuthenticated ? Routes.home.path : Routes.welcome.path;
+  }
+
+  if (isAuthenticated && isAuthRoute) {
     return Routes.home.path;
+  }
+
+  if (!isAuthenticated && isProtectedRoute(location)) {
+    return Routes.welcome.path;
   }
 
   return null;
