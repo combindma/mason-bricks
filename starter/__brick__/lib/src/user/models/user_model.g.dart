@@ -16,6 +16,7 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   zipCode: json['zipCode'] as String?,
   country: json['country'] as String?,
   photoUrl: json['photoUrl'] as String?,
+  fcmToken: json['fcmToken'] as String?,
   provider: json['provider'] as String? ?? 'email',
   createdAt: const TimestampConverter().fromJson(json['createdAt']),
 );
@@ -31,6 +32,7 @@ Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
       'zipCode': instance.zipCode,
       'country': instance.country,
       'photoUrl': instance.photoUrl,
+      'fcmToken': instance.fcmToken,
       'provider': instance.provider,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

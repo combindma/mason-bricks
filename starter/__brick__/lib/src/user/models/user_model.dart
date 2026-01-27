@@ -17,6 +17,7 @@ abstract class UserModel with _$UserModel {
     String? zipCode,
     String? country,
     String? photoUrl,
+    String? fcmToken,
     @Default('email') String provider,
     @TimestampConverter() DateTime? createdAt,
   }) = _UserModel;

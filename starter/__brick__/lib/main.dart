@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,8 +14,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'shared/ui/offline_screen.dart';
-import 'bootstrap/connectivity_provider.dart';
-import 'bootstrap/package_info_provider.dart';
 import 'bootstrap/providers.dart';
 import 'config/app_config.dart';
 import 'core/extensions/extensions.dart';
@@ -27,6 +26,11 @@ import 'shared/ui/error_screen.dart';
 import 'shared/ui/splash_screen.dart';
 import 'src/auth/presentation/controllers/auth_notifier_provider.dart';
 import 'src/onboarding/onboarding_provider.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +49,8 @@ Future<void> main() async {
       return true;
     };
   }
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(
     ProviderScope(
@@ -125,6 +131,7 @@ class _EagerInitialization extends ConsumerWidget {
     final authState = ref.watch(authNotifierProvider);
     final packageInfo = ref.watch(packageInfoProvider);
     final onboardingState = ref.watch(onboardingProvider);
+    ref.watch(pushNotificationProvider);
 
     final isLoading = connectivity.isLoading || onboardingState.isLoading || themeController.isLoading || config.isLoading || authState.isLoading || packageInfo.isLoading;
 

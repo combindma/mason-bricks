@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserModel {
 
- String get id; String? get name; String get email; String? get phone; String? get address; String? get city; String? get zipCode; String? get country; String? get photoUrl; String get provider;@TimestampConverter() DateTime? get createdAt;
+ String get id; String? get name; String get email; String? get phone; String? get address; String? get city; String? get zipCode; String? get country; String? get photoUrl; String? get fcmToken; String get provider;@TimestampConverter() DateTime? get createdAt;
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&(identical(other.city, city) || other.city == city)&&(identical(other.zipCode, zipCode) || other.zipCode == zipCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&(identical(other.city, city) || other.city == city)&&(identical(other.zipCode, zipCode) || other.zipCode == zipCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,phone,address,city,zipCode,country,photoUrl,provider,createdAt);
+int get hashCode => Object.hash(runtimeType,id,name,email,phone,address,city,zipCode,country,photoUrl,fcmToken,provider,createdAt);
 
 @override
 String toString() {
-  return 'UserModel(id: $id, name: $name, email: $email, phone: $phone, address: $address, city: $city, zipCode: $zipCode, country: $country, photoUrl: $photoUrl, provider: $provider, createdAt: $createdAt)';
+  return 'UserModel(id: $id, name: $name, email: $email, phone: $phone, address: $address, city: $city, zipCode: $zipCode, country: $country, photoUrl: $photoUrl, fcmToken: $fcmToken, provider: $provider, createdAt: $createdAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserModelCopyWith<$Res>  {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) _then) = _$UserModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String? name, String email, String? phone, String? address, String? city, String? zipCode, String? country, String? photoUrl, String provider,@TimestampConverter() DateTime? createdAt
+ String id, String? name, String email, String? phone, String? address, String? city, String? zipCode, String? country, String? photoUrl, String? fcmToken, String provider,@TimestampConverter() DateTime? createdAt
 });
 
 
@@ -65,7 +65,7 @@ class _$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? email = null,Object? phone = freezed,Object? address = freezed,Object? city = freezed,Object? zipCode = freezed,Object? country = freezed,Object? photoUrl = freezed,Object? provider = null,Object? createdAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? email = null,Object? phone = freezed,Object? address = freezed,Object? city = freezed,Object? zipCode = freezed,Object? country = freezed,Object? photoUrl = freezed,Object? fcmToken = freezed,Object? provider = null,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -76,6 +76,7 @@ as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to
 as String?,zipCode: freezed == zipCode ? _self.zipCode : zipCode // ignore: cast_nullable_to_non_nullable
 as String?,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String?,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
+as String?,fcmToken: freezed == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
 as String?,provider: null == provider ? _self.provider : provider // ignore: cast_nullable_to_non_nullable
 as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
@@ -163,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? name,  String email,  String? phone,  String? address,  String? city,  String? zipCode,  String? country,  String? photoUrl,  String provider, @TimestampConverter()  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? name,  String email,  String? phone,  String? address,  String? city,  String? zipCode,  String? country,  String? photoUrl,  String? fcmToken,  String provider, @TimestampConverter()  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.city,_that.zipCode,_that.country,_that.photoUrl,_that.provider,_that.createdAt);case _:
+return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.city,_that.zipCode,_that.country,_that.photoUrl,_that.fcmToken,_that.provider,_that.createdAt);case _:
   return orElse();
 
 }
@@ -184,10 +185,10 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? name,  String email,  String? phone,  String? address,  String? city,  String? zipCode,  String? country,  String? photoUrl,  String provider, @TimestampConverter()  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? name,  String email,  String? phone,  String? address,  String? city,  String? zipCode,  String? country,  String? photoUrl,  String? fcmToken,  String provider, @TimestampConverter()  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _UserModel():
-return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.city,_that.zipCode,_that.country,_that.photoUrl,_that.provider,_that.createdAt);case _:
+return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.city,_that.zipCode,_that.country,_that.photoUrl,_that.fcmToken,_that.provider,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +205,10 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? name,  String email,  String? phone,  String? address,  String? city,  String? zipCode,  String? country,  String? photoUrl,  String provider, @TimestampConverter()  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? name,  String email,  String? phone,  String? address,  String? city,  String? zipCode,  String? country,  String? photoUrl,  String? fcmToken,  String provider, @TimestampConverter()  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.city,_that.zipCode,_that.country,_that.photoUrl,_that.provider,_that.createdAt);case _:
+return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.city,_that.zipCode,_that.country,_that.photoUrl,_that.fcmToken,_that.provider,_that.createdAt);case _:
   return null;
 
 }
@@ -219,7 +220,7 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.address,_that.
 @JsonSerializable()
 
 class _UserModel implements UserModel {
-  const _UserModel({required this.id, this.name, required this.email, this.phone, this.address, this.city, this.zipCode, this.country, this.photoUrl, this.provider = 'email', @TimestampConverter() this.createdAt});
+  const _UserModel({required this.id, this.name, required this.email, this.phone, this.address, this.city, this.zipCode, this.country, this.photoUrl, this.fcmToken, this.provider = 'email', @TimestampConverter() this.createdAt});
   factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
 @override final  String id;
@@ -231,6 +232,7 @@ class _UserModel implements UserModel {
 @override final  String? zipCode;
 @override final  String? country;
 @override final  String? photoUrl;
+@override final  String? fcmToken;
 @override@JsonKey() final  String provider;
 @override@TimestampConverter() final  DateTime? createdAt;
 
@@ -247,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&(identical(other.city, city) || other.city == city)&&(identical(other.zipCode, zipCode) || other.zipCode == zipCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&(identical(other.city, city) || other.city == city)&&(identical(other.zipCode, zipCode) || other.zipCode == zipCode)&&(identical(other.country, country) || other.country == country)&&(identical(other.photoUrl, photoUrl) || other.photoUrl == photoUrl)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.provider, provider) || other.provider == provider)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,phone,address,city,zipCode,country,photoUrl,provider,createdAt);
+int get hashCode => Object.hash(runtimeType,id,name,email,phone,address,city,zipCode,country,photoUrl,fcmToken,provider,createdAt);
 
 @override
 String toString() {
-  return 'UserModel(id: $id, name: $name, email: $email, phone: $phone, address: $address, city: $city, zipCode: $zipCode, country: $country, photoUrl: $photoUrl, provider: $provider, createdAt: $createdAt)';
+  return 'UserModel(id: $id, name: $name, email: $email, phone: $phone, address: $address, city: $city, zipCode: $zipCode, country: $country, photoUrl: $photoUrl, fcmToken: $fcmToken, provider: $provider, createdAt: $createdAt)';
 }
 
 
@@ -267,7 +269,7 @@ abstract mixin class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Re
   factory _$UserModelCopyWith(_UserModel value, $Res Function(_UserModel) _then) = __$UserModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? name, String email, String? phone, String? address, String? city, String? zipCode, String? country, String? photoUrl, String provider,@TimestampConverter() DateTime? createdAt
+ String id, String? name, String email, String? phone, String? address, String? city, String? zipCode, String? country, String? photoUrl, String? fcmToken, String provider,@TimestampConverter() DateTime? createdAt
 });
 
 
@@ -284,7 +286,7 @@ class __$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = freezed,Object? email = null,Object? phone = freezed,Object? address = freezed,Object? city = freezed,Object? zipCode = freezed,Object? country = freezed,Object? photoUrl = freezed,Object? provider = null,Object? createdAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = freezed,Object? email = null,Object? phone = freezed,Object? address = freezed,Object? city = freezed,Object? zipCode = freezed,Object? country = freezed,Object? photoUrl = freezed,Object? fcmToken = freezed,Object? provider = null,Object? createdAt = freezed,}) {
   return _then(_UserModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -295,6 +297,7 @@ as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to
 as String?,zipCode: freezed == zipCode ? _self.zipCode : zipCode // ignore: cast_nullable_to_non_nullable
 as String?,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String?,photoUrl: freezed == photoUrl ? _self.photoUrl : photoUrl // ignore: cast_nullable_to_non_nullable
+as String?,fcmToken: freezed == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
 as String?,provider: null == provider ? _self.provider : provider // ignore: cast_nullable_to_non_nullable
 as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,

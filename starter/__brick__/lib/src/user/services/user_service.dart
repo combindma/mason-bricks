@@ -9,12 +9,13 @@ class UserService extends Service {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseStore = FirebaseFirestore.instance;
+  CollectionReference<Map<String, dynamic>> get _usersCollection => _firebaseStore.collection('users');
 
   Future<UserModel?> currentUser() async {
     final user = _firebaseAuth.currentUser;
     if (user == null) return null;
 
-    final doc = await _firebaseStore.collection('users').doc(user.uid).get();
+    final doc = await _usersCollection.doc(user.uid).get();
 
     if (!doc.exists || doc.data() == null) return null;
 
@@ -45,8 +46,24 @@ class UserService extends Service {
     };
 
     await Future.wait([
-      _firebaseStore.collection('users').doc(user.uid).update(updates),
+      _usersCollection.doc(user.uid).update(updates),
       user.updateDisplayName(name),
     ]);
+  }
+
+  Future<void> updateFcmToken({
+    required String uid,
+    required String token,
+  }) async {
+    await _usersCollection.doc(uid).set(
+      {'fcmToken': token},
+      SetOptions(merge: true), // Important: merge, don't overwrite
+    );
+  }
+
+  Future<void> clearFcmToken({required String uid}) async {
+    await _usersCollection.doc(uid).update({
+      'fcmToken': FieldValue.delete(),
+    });
   }
 }
