@@ -66,7 +66,7 @@ check: fmt fix lint test
 
 # Standard install
 pod:
-	cd ios && pod install
+	cd ios && pod init && pod install && pod install --repo-update
 
 # Update repo and install
 pod-update:

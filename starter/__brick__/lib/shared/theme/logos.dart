@@ -1,10 +1,7 @@
 class BaseLogos {
   BaseLogos._();
 
-  //TODO
-  //SVG
   static const String svgLogo = 'assets/logos/logo.svg';
-  //PNG
   static const String logo = 'assets/logos/logo.png';
   static const String darkLogo = 'assets/logos/logo-alt.png';
 

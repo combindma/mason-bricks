@@ -33,6 +33,8 @@ void run(HookContext context) async {
     'force_update_helper',
     'cached_network_image',
     'connectivity_plus',
+    'permission_handler',
+    'flutter_local_notifications',
     'form_builder_validators',
     'flutter_svg',
     'google_fonts',
