@@ -16,7 +16,7 @@ class ApiService {
   AuthNotifier get _auth => _ref.read(authNotifierProvider.notifier);
 
   // Base configuration
-  static const String _baseUrl = ServicesConfig.ApiBaseUrl;
+  static const String _baseUrl = ServicesConfig.apiBaseUrl;
 
   BaseOptions get _baseOptions => BaseOptions(
     baseUrl: _baseUrl,

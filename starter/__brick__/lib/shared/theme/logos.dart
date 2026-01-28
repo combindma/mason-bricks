@@ -2,6 +2,7 @@ class BaseLogos {
   BaseLogos._();
 
   static const String svgLogo = 'assets/logos/logo.svg';
+  static const String darkSvgLogo = 'assets/logos/logo-alt.svg';
   static const String logo = 'assets/logos/logo.png';
   static const String darkLogo = 'assets/logos/logo-alt.png';
 

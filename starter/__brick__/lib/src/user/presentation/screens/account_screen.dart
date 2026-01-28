@@ -58,8 +58,8 @@ class AccountScreen extends ConsumerWidget {
                         titleAlignment: ListTileTitleAlignment.center,
                         title: Text(
                           userController.requireValue?.name?.capitalized ?? 'profile'.tr(),
-                          style: context.titleMedium,
-                        ),
+                          style: context.bodyMedium,
+                        ).medium,
                         subtitle: Text('edit profile'.tr(), style: context.bodyMedium),
                         leading: const HugeIcon(icon: HugeIcons.strokeRoundedUser),
                         trailing: const HugeIcon(icon: HugeIcons.strokeRoundedArrowRight01),
@@ -71,14 +71,14 @@ class AccountScreen extends ConsumerWidget {
                       children: [
                         ListTile(
                           titleAlignment: ListTileTitleAlignment.center,
-                          title: Text('sign up'.tr(), style: context.titleMedium),
+                          title: Text('sign up'.tr(), style: context.bodyMedium),
                           leading: const HugeIcon(icon: HugeIcons.strokeRoundedUserAdd02),
                           onTap: () => context.goNamed(Routes.signup.name),
                         ),
                         const SectionDivider(),
                         ListTile(
                           titleAlignment: ListTileTitleAlignment.center,
-                          title: Text('log in'.tr(), style: context.titleMedium),
+                          title: Text('log in'.tr(), style: context.bodyMedium),
                           leading: const HugeIcon(icon: HugeIcons.strokeRoundedLogin01),
                           onTap: () => context.goNamed(Routes.login.name),
                         ),
@@ -96,8 +96,8 @@ class AccountScreen extends ConsumerWidget {
                     return ListTile(
                       titleAlignment: ListTileTitleAlignment.center,
                       leading: const HugeIcon(icon: HugeIcons.strokeRoundedPaintBoard),
-                      title: Text('appearance'.tr(), style: context.bodyLarge),
-                      subtitle: Text(themeMode.name.capitalized, style: context.bodyMedium),
+                      title: Text('appearance'.tr(), style: context.bodyMedium),
+                      subtitle: Text(themeMode.name.capitalized, style: context.labelSmall),
                       trailing: const HugeIcon(icon: HugeIcons.strokeRoundedArrowRight01),
                       onTap: () async => await showAdaptiveDialog(context: context, builder: (_) => AppearanceDialog()),
                     );
@@ -113,7 +113,7 @@ class AccountScreen extends ConsumerWidget {
                       titleAlignment: ListTileTitleAlignment.center,
                       leading: const HugeIcon(icon: HugeIcons.strokeRoundedSecurityLock),
                       trailing: const HugeIcon(icon: HugeIcons.strokeRoundedArrowUpRight03),
-                      title: Text('privacy_policy'.tr(), style: context.bodyLarge),
+                      title: Text('privacy_policy'.tr(), style: context.bodyMedium),
                       onTap: () => DeviceHelper.launchLink(config.privacyUrl),
                     ),
                     const SectionDivider(),
@@ -121,7 +121,7 @@ class AccountScreen extends ConsumerWidget {
                       titleAlignment: ListTileTitleAlignment.center,
                       leading: const HugeIcon(icon: HugeIcons.strokeRoundedFile01),
                       trailing: const HugeIcon(icon: HugeIcons.strokeRoundedArrowUpRight03),
-                      title: Text('terms_of_service'.tr(), style: context.bodyLarge),
+                      title: Text('terms_of_service'.tr(), style: context.bodyMedium),
                       onTap: () => DeviceHelper.launchLink(config.cgvUrl),
                     ),
                   ],
@@ -138,7 +138,7 @@ class AccountScreen extends ConsumerWidget {
                     return ListTile(
                       titleAlignment: ListTileTitleAlignment.center,
                       leading: HugeIcon(icon: HugeIcons.strokeRoundedLogoutSquare02, color: Colors.red.shade300, strokeWidth: 2),
-                      title: Text('sign out'.tr(), style: context.bodyLarge).withColor(Colors.red.shade500).medium,
+                      title: Text('sign out'.tr(), style: context.bodyMedium).withColor(Colors.red.shade500).medium,
                       onTap: () async => await showAdaptiveDialog(context: context, builder: (_) => SignOutDialog()),
                     );
                   },
