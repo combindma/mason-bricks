@@ -51,16 +51,10 @@ class AuthService {
     final sha256Nonce = sha256.convert(utf8.encode(rawNonce)).toString();
 
     final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
+      scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
       nonce: sha256Nonce,
     );
-    final oauthCredential = OAuthProvider("apple.com").credential(
-      idToken: appleCredential.identityToken,
-      rawNonce: rawNonce,
-    );
+    final oauthCredential = OAuthProvider("apple.com").credential(idToken: appleCredential.identityToken, rawNonce: rawNonce);
 
     if (isReauthenticate) {
       return await _firebaseAuth.currentUser!.reauthenticateWithCredential(oauthCredential);
@@ -82,7 +76,7 @@ class AuthService {
   Future<void> register({required String name, required String email, required String password}) async {
     final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
     final user = userCredential.user;
-    if(user != null) {
+    if (user != null) {
       await user.updateDisplayName(name);
       await _createUser(user: user, name: name, provider: 'email');
     }
@@ -114,14 +108,7 @@ class AuthService {
     final userDoc = _usersCollection.doc(user.uid);
     final docSnapshot = await userDoc.get();
     if (!docSnapshot.exists) {
-      final newUser = UserModel(
-        id: user.uid,
-        email: user.email ?? '',
-        name: name,
-        photoUrl: user.photoURL,
-        provider: provider,
-        createdAt: null,
-      );
+      final newUser = UserModel(id: user.uid, email: user.email ?? '', name: name, photoUrl: user.photoURL, provider: provider, createdAt: null);
       final json = newUser.toJson();
       json['createdAt'] = FieldValue.serverTimestamp();
       await userDoc.set(json);
@@ -129,18 +116,11 @@ class AuthService {
   }
 
   Future<void> _reauthenticateWithEmail({required User user, required String password}) async {
-    final credential = EmailAuthProvider.credential(
-      email: user.email!,
-      password: password,
-    );
+    final credential = EmailAuthProvider.credential(email: user.email!, password: password);
     await user.reauthenticateWithCredential(credential);
   }
 
-  Future<void> _reauthenticate({
-    required User user,
-    required String? provider,
-    String? password,
-  }) async {
+  Future<void> _reauthenticate({required User user, required String? provider, String? password}) async {
     switch (provider) {
       case 'google':
         await signInWithGoogle(isReauthenticate: true);
@@ -154,19 +134,12 @@ class AuthService {
     }
   }
 
-  Future<void> updateFcmToken({
-    required String uid,
-    required String token,
-  }) async {
-    await _usersCollection.doc(uid).update(
-        {'fcmToken': token} // Important: merge, don't overwrite
-    );
+  Future<void> updateFcmToken({required String uid, required String token}) async {
+    await _usersCollection.doc(uid).update({'fcmToken': token});
   }
 
   Future<void> clearFcmToken({required String uid}) async {
-    await _usersCollection.doc(uid).update({
-      'fcmToken': FieldValue.delete(),
-    });
+    await _usersCollection.doc(uid).update({'fcmToken': FieldValue.delete()});
   }
 
   // Helper function to generate random string for Apple Sign In
