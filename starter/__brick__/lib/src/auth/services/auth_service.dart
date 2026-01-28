@@ -14,6 +14,8 @@ class AuthService {
   final FirebaseFirestore _firebaseStore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
+  CollectionReference<Map<String, dynamic>> get _usersCollection => _firebaseStore.collection('users');
+
   Future<bool> checkIfAuthenticated() async {
     final user = _firebaseAuth.currentUser;
     return user != null;
@@ -38,7 +40,7 @@ class AuthService {
     final userCredential = await _firebaseAuth.signInWithCredential(credential);
     final user = userCredential.user;
     if (user != null) {
-      _createUser(user: user, name: user.displayName, provider: 'google');
+      await _createUser(user: user, name: user.displayName, provider: 'google');
     }
 
     return userCredential;
@@ -71,7 +73,7 @@ class AuthService {
       if (appleCredential.givenName != null) {
         displayName = '${appleCredential.givenName} ${appleCredential.familyName ?? ''}'.trim();
       }
-      _createUser(user: user, name: displayName, provider: 'apple');
+      await _createUser(user: user, name: displayName, provider: 'apple');
     }
 
     return userCredential;
@@ -88,6 +90,7 @@ class AuthService {
 
   Future<void> logout() async {
     await _firebaseAuth.signOut();
+    await _googleSignIn.signOut();
   }
 
   Future<void> sendPasswordResetEmail({required String email}) async {
@@ -97,18 +100,18 @@ class AuthService {
   Future<void> deleteAccount({String? password}) async {
     final user = _firebaseAuth.currentUser;
     if (user == null) return;
-    final userDoc = await _firebaseStore.collection('users').doc(user.uid).get();
+    final userDoc = await _usersCollection.doc(user.uid).get();
     final provider = userDoc.data()?['provider'] as String?;
     //Re-authenticate based on provider
     await _reauthenticate(user: user, provider: provider, password: password);
     //Delete Firestore document first (while still authenticated)
-    await _firebaseStore.collection('users').doc(user.uid).delete();
+    await _usersCollection.doc(user.uid).delete();
     //Delete Firebase Auth account last
     await user.delete();
   }
 
   Future<void> _createUser({required User user, String? name, required String provider}) async {
-    final userDoc = _firebaseStore.collection('users').doc(user.uid);
+    final userDoc = _usersCollection.doc(user.uid);
     final docSnapshot = await userDoc.get();
     if (!docSnapshot.exists) {
       final newUser = UserModel(
@@ -149,6 +152,21 @@ class AuthService {
       default:
         throw Exception();
     }
+  }
+
+  Future<void> updateFcmToken({
+    required String uid,
+    required String token,
+  }) async {
+    await _usersCollection.doc(uid).update(
+        {'fcmToken': token} // Important: merge, don't overwrite
+    );
+  }
+
+  Future<void> clearFcmToken({required String uid}) async {
+    await _usersCollection.doc(uid).update({
+      'fcmToken': FieldValue.delete(),
+    });
   }
 
   // Helper function to generate random string for Apple Sign In

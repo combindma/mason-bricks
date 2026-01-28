@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../bootstrap/providers.dart';
-import '../../../user/user_provider.dart';
 import '../../auth_provider.dart';
 import 'auth_state.dart';
 
@@ -55,9 +54,8 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     try {
       final auth = ref.read(authServiceProvider);
       await auth.signInWithEmailAndPassword(email: email, password: password);
-      state = const AsyncData(AuthStateAuthenticated());
-      // Save FCM token after successful login
       await _saveFcmToken();
+      state = const AsyncData(AuthStateAuthenticated());
     } catch (e, stackTrace) {
       ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
       state = const AsyncData(AuthStateUnauthenticated());
@@ -69,9 +67,8 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     try {
       final auth = ref.read(authServiceProvider);
       await auth.signInWithGoogle();
-      state = const AsyncData(AuthStateAuthenticated());
-      // Save FCM token after successful login
       await _saveFcmToken();
+      state = const AsyncData(AuthStateAuthenticated());
     } catch (e, stackTrace) {
       ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
       state = const AsyncData(AuthStateUnauthenticated());
@@ -83,9 +80,8 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     try {
       final auth = ref.read(authServiceProvider);
       await auth.signInWithApple();
-      state = const AsyncData(AuthStateAuthenticated());
-      // Save FCM token after successful login
       await _saveFcmToken();
+      state = const AsyncData(AuthStateAuthenticated());
     } catch (e, stackTrace) {
       ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
       state = const AsyncData(AuthStateUnauthenticated());
@@ -98,9 +94,8 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     try {
       final auth = ref.read(authServiceProvider);
       await auth.register(name: name, email: email, password: password);
-      state = const AsyncData(AuthStateAuthenticated());
-      // Save FCM token after successful login
       await _saveFcmToken();
+      state = const AsyncData(AuthStateAuthenticated());
     } catch (e, stackTrace) {
       ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
       state = const AsyncData(AuthStateUnauthenticated());
@@ -154,23 +149,27 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   }
 
   Future<void> _saveFcmToken() async {
-    final user = currentUser();
-    if (user == null) return;
+    final auth = ref.read(authServiceProvider);
+    final user = auth.getCurrentUserData();
+    if (user == null) {
+      return;
+    }
 
     final pushService = ref.read(pushNotificationServiceProvider);
     final token = await pushService.getToken();
 
     if (token != null) {
-      final userService = ref.read(userServiceProvider);
-      await userService.updateFcmToken(uid: user.uid, token: token);
+      await auth.updateFcmToken(uid: user.uid, token: token);
     }
   }
 
   Future<void> _clearFcmToken() async {
-    final user = currentUser();
-    if (user == null) return;
+    final auth = ref.read(authServiceProvider);
+    final user = auth.getCurrentUserData();
+    if (user == null) {
+      return;
+    }
 
-    final userService = ref.read(userServiceProvider);
-    await userService.clearFcmToken(uid: user.uid);
+    await auth.clearFcmToken(uid: user.uid);
   }
 }

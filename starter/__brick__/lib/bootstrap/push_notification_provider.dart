@@ -1,9 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../core/services/push_notification_service.dart';
+import '../src/auth/auth_provider.dart';
 import '../src/auth/presentation/controllers/auth_notifier_provider.dart';
 import '../src/auth/presentation/controllers/auth_state.dart';
-import '../src/user/user_provider.dart';
 
 final pushNotificationServiceProvider = Provider<PushNotificationService>(
   isAutoDispose: false,
@@ -42,7 +42,7 @@ Future<void> _saveTokenToFirestore(Ref ref, String token) async {
   final user = authNotifier.currentUser();
 
   if (user != null) {
-    final userService = ref.read(userServiceProvider);
-    await userService.updateFcmToken(uid: user.uid, token: token);
+    final authService = ref.read(authServiceProvider);
+    await authService.updateFcmToken(uid: user.uid, token: token);
   }
 }

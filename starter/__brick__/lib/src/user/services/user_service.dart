@@ -32,7 +32,7 @@ class UserService extends Service {
     String? city,
     String? zipCode,
     String? country,
-}) async {
+  }) async {
     final user = _firebaseAuth.currentUser;
     if (user == null) return;
 
@@ -49,21 +49,5 @@ class UserService extends Service {
       _usersCollection.doc(user.uid).update(updates),
       user.updateDisplayName(name),
     ]);
-  }
-
-  Future<void> updateFcmToken({
-    required String uid,
-    required String token,
-  }) async {
-    await _usersCollection.doc(uid).set(
-      {'fcmToken': token},
-      SetOptions(merge: true), // Important: merge, don't overwrite
-    );
-  }
-
-  Future<void> clearFcmToken({required String uid}) async {
-    await _usersCollection.doc(uid).update({
-      'fcmToken': FieldValue.delete(),
-    });
   }
 }
