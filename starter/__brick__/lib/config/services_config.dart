@@ -3,4 +3,5 @@ class ServicesConfig {
 
   //API Base URLs, third-party keys.
   //static const String geminiApiUrl = 'xxx';
+  static const String ApiBaseUrl = 'https://api.example.com/v1';
 }

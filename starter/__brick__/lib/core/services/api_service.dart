@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
 
+import '../../config/services_config.dart';
 import '../../src/auth/presentation/controllers/auth_notifier_provider.dart';
 
 class ApiService {
@@ -15,7 +16,7 @@ class ApiService {
   AuthNotifier get _auth => _ref.read(authNotifierProvider.notifier);
 
   // Base configuration
-  static const String _baseUrl = 'https://api.example.com/v1';
+  static const String _baseUrl = ServicesConfig.ApiBaseUrl;
 
   BaseOptions get _baseOptions => BaseOptions(
     baseUrl: _baseUrl,

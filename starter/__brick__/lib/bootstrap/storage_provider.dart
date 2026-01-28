@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final storageServiceProvider = Provider<StorageService>(isAutoDispose: false, (ref) => StorageService());
+final storageServiceProvider = Provider.autoDispose<StorageService>((ref) => StorageService());
 
 
 class StorageService {
