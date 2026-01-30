@@ -4,24 +4,29 @@ class BaseTextTheme {
   BaseTextTheme._();
 
   static final TextTheme baseTheme = TextTheme(
-    displayLarge: const TextStyle().copyWith(fontSize: 96.0, fontWeight: FontWeight.w600),
-    displayMedium: const TextStyle().copyWith(fontSize: 60.0, fontWeight: FontWeight.w600, letterSpacing: 0),
-    displaySmall: const TextStyle().copyWith(fontSize: 48.0, fontWeight: FontWeight.w600, letterSpacing: 0),
+    // Display — hero text, splash screens (rarely used on mobile)
+    displayLarge: const TextStyle().copyWith(fontSize: 57.0, fontWeight: FontWeight.w700, letterSpacing: -0.25),
+    displayMedium: const TextStyle().copyWith(fontSize: 45.0, fontWeight: FontWeight.w700, letterSpacing: 0.0),
+    displaySmall: const TextStyle().copyWith(fontSize: 36.0, fontWeight: FontWeight.w700, letterSpacing: 0.0),
 
-    headlineLarge: const TextStyle().copyWith(fontSize: 40.0, fontWeight: FontWeight.w600, letterSpacing: 0),
-    headlineMedium: const TextStyle().copyWith(fontSize: 34.0, fontWeight: FontWeight.w600, letterSpacing: 0),
-    headlineSmall: const TextStyle().copyWith(fontSize: 24.0, fontWeight: FontWeight.w600, letterSpacing: 0),
+    // Headline — section headers, modal titles
+    headlineLarge: const TextStyle().copyWith(fontSize: 32.0, fontWeight: FontWeight.w600, letterSpacing: 0.0),
+    headlineMedium: const TextStyle().copyWith(fontSize: 28.0, fontWeight: FontWeight.w600, letterSpacing: 0.0),
+    headlineSmall: const TextStyle().copyWith(fontSize: 24.0, fontWeight: FontWeight.w600, letterSpacing: 0.0),
 
-    titleLarge: const TextStyle().copyWith(fontSize: 22.0, fontWeight: FontWeight.w500, letterSpacing: 0),
-    titleMedium: const TextStyle().copyWith(fontSize: 20.0, fontWeight: FontWeight.w500, letterSpacing: 0),
-    titleSmall: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w500, letterSpacing: 0),
+    // Title — card titles, list headers, app bar
+    titleLarge: const TextStyle().copyWith(fontSize: 22.0, fontWeight: FontWeight.w600, letterSpacing: 0.0),
+    titleMedium: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w600, letterSpacing: 0.15),
+    titleSmall: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w600, letterSpacing: 0.1),
 
-    bodyLarge: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w400, letterSpacing: 0),
-    bodyMedium: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w400, letterSpacing: 0),
-    bodySmall: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w400, letterSpacing: 0),
+    // Body — primary content, paragraphs
+    bodyLarge: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w400, letterSpacing: 0.5, height: 1.5),
+    bodyMedium: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w400, letterSpacing: 0.25, height: 1.43),
+    bodySmall: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.w400, letterSpacing: 0.4, height: 1.33),
 
-    labelLarge: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w500, letterSpacing: 0),
-    labelMedium: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, letterSpacing: 0),
-    labelSmall: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.w500, letterSpacing: 0),
+    // Label — buttons, chips, form labels, captions
+    labelLarge: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+    labelMedium: const TextStyle().copyWith(fontSize: 12.0, fontWeight: FontWeight.w500, letterSpacing: 0.5),
+    labelSmall: const TextStyle().copyWith(fontSize: 11.0, fontWeight: FontWeight.w500, letterSpacing: 0.5),
   );
 }
