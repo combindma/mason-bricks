@@ -13,11 +13,11 @@ import '../controllers/auth_notifier_provider.dart';
 import '../controllers/auth_state.dart';
 import '../widgets/forgot_password_form.dart';
 
-class LoginFormScreen extends HookWidget {
+class LoginFormScreen extends HookConsumerWidget {
   const LoginFormScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final hidePassword = useState(true);
     final email = useTextEditingController();
@@ -69,7 +69,7 @@ class LoginFormScreen extends HookWidget {
                           Align(
                             alignment: Alignment.center,
                             child: TextButton(
-                              onPressed: () => showAppBottomSheet(context: context, child: const ForgotPasswordForm()),
+                              onPressed: () => showAppBottomSheet(ref: ref, child: const ForgotPasswordForm()),
                               child: Text('forgot password').tr().centered().medium.withColor(context.isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),

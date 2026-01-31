@@ -71,8 +71,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final rootKey = ref.watch(rootNavigatorKeyProvider);
-    final router = ref.watch(routerProvider);
     final themeController = ref.watch(themeControllerProvider).requireValue;
     final config = ref.watch(remoteConfigProvider).requireValue;
     final isOnline = ref.watch(connectivityProvider).requireValue;
@@ -92,10 +90,10 @@ class MyApp extends ConsumerWidget {
       ],
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       builder: (context, child) {
         return ForceUpdateWidget(
-          navigatorKey: rootKey,
+          navigatorKey: ref.watch(rootNavigatorKeyProvider),
           forceUpdateClient: ForceUpdateClient(fetchRequiredVersion: () async => config.requiredMinVersion, iosAppStoreId: AppConfig.iosAppStoreId),
           allowCancel: false,
           showForceUpdateAlert: (context, allowCancel) async => await showAdaptiveDialog(

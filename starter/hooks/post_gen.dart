@@ -43,6 +43,7 @@ void run(HookContext context) async {
     'introduction_screen',
     'share_plus',
     'shimmer',
+    'fluttertoast',
     'infinite_scroll_pagination',
     'country_picker',
   ];
