@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
 
-import '../../core/extensions/extensions.dart';
 import '../../bootstrap/error_provider.dart';
+import 'show_toast.dart';
 
 class AppErrorListener extends ConsumerWidget {
   final Widget child;
@@ -14,7 +13,9 @@ class AppErrorListener extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<ErrorEvent?>(globalErrorProvider, (previous, next) {
       if (next != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        showAppToast(isError: true, message: next.message);
+
+        /*ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(
               children: [
@@ -33,7 +34,7 @@ class AppErrorListener extends ConsumerWidget {
             duration: const Duration(seconds: 3),
             dismissDirection: DismissDirection.horizontal,
           ),
-        );
+        );*/
       }
     });
 
