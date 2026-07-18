@@ -9,7 +9,7 @@ import '../exceptions/api_exception.dart';
 
 
 class ApiService {
-  ApiService(this._ref, this._baseUrl) {
+  ApiService(this._ref, {required this._baseUrl}) {
     _dio = Dio(_baseOptions);
     _dio.interceptors.add(_authInterceptor());
   }

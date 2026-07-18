@@ -5,5 +5,5 @@ import 'remote_config_provider.dart';
 
 final apiServiceProvider = Provider<ApiService>(isAutoDispose: false, (ref) {
   final config = ref.watch(remoteConfigProvider).requireValue;
-  return ApiService(ref, config.apiUrl);
+  return ApiService(ref, baseUrl: config.apiUrl);
 });
