@@ -114,7 +114,7 @@ class AccountScreen extends ConsumerWidget {
                       leading: const HugeIcon(icon: HugeIcons.strokeRoundedSecurityLock),
                       trailing: const HugeIcon(icon: HugeIcons.strokeRoundedArrowUpRight03),
                       title: Text('privacy_policy'.tr(), style: context.bodyMedium),
-                      onTap: () => DeviceHelper.launchLink(config.privacyUrl),
+                      onTap: () => DeviceHelper.launchLink(AppConfig.privacyUrl),
                     ),
                     const SectionDivider(),
                     ListTile(
@@ -122,7 +122,7 @@ class AccountScreen extends ConsumerWidget {
                       leading: const HugeIcon(icon: HugeIcons.strokeRoundedFile01),
                       trailing: const HugeIcon(icon: HugeIcons.strokeRoundedArrowUpRight03),
                       title: Text('terms_of_service'.tr(), style: context.bodyMedium),
-                      onTap: () => DeviceHelper.launchLink(config.cgvUrl),
+                      onTap: () => DeviceHelper.launchLink(AppConfig.cgvUrl),
                     ),
                   ],
                 ),

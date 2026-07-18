@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../core/exceptions/api_exception.dart';
 import '../core/exceptions/index.dart';
 
 final globalErrorProvider = NotifierProvider<GlobalErrorNotifier, ErrorEvent?>(GlobalErrorNotifier.new);
@@ -22,7 +23,9 @@ class GlobalErrorNotifier extends Notifier<ErrorEvent?> {
   }
 
   String _map(Object error) {
-    if (error is SocketException || error is TimeoutException || error.toString().contains("SocketException")) {
+    if (error is ApiException) {
+      return error.message;
+    } else if (error is SocketException || error is TimeoutException) {
       return NetworkException().handleError(error);
     } else if (error is FirebaseAuthException || error is FirebaseException) {
       return FirebaseExceptionHandler().handleError(error);

@@ -2,9 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../bootstrap/remote_config_provider.dart';
 import '../../../../config/app_config.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/utils/device_helper.dart';
@@ -51,32 +49,27 @@ class WelcomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Consumer(
-                builder: (context, ref, child) {
-                  final config = ref.read(remoteConfigProvider).requireValue;
-                  return RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      style: Theme.of(context).textTheme.bodySmall,
-                      text: 'welcome.terms_intro'.tr(namedArgs: {'appName': AppConfig.name}),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'welcome.terms_link'.tr(),
-                          style: const TextStyle(decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()..onTap = () => DeviceHelper.launchLink(config.cgvUrl),
-                        ),
-                        const TextSpan(text: ' '),
-                        TextSpan(text: 'and'.tr()),
-                        const TextSpan(text: ' '),
-                        TextSpan(
-                          text: 'welcome.privacy_link'.tr(),
-                          style: const TextStyle(decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()..onTap = () => DeviceHelper.launchLink(config.privacyUrl),
-                        ),
-                      ],
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.bodySmall,
+                  text: 'welcome.terms_intro'.tr(namedArgs: {'appName': AppConfig.name}),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'welcome.terms_link'.tr(),
+                      style: const TextStyle(decoration: TextDecoration.underline),
+                      recognizer: TapGestureRecognizer()..onTap = () => DeviceHelper.launchLink(AppConfig.cgvUrl),
                     ),
-                  );
-                },
+                    const TextSpan(text: ' '),
+                    TextSpan(text: 'and'.tr()),
+                    const TextSpan(text: ' '),
+                    TextSpan(
+                      text: 'welcome.privacy_link'.tr(),
+                      style: const TextStyle(decoration: TextDecoration.underline),
+                      recognizer: TapGestureRecognizer()..onTap = () => DeviceHelper.launchLink(AppConfig.privacyUrl),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               SizedBox(

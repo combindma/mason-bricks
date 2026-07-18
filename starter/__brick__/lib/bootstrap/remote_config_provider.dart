@@ -14,7 +14,10 @@ final remoteConfigProvider = FutureProvider<RemoteConfigService>(isAutoDispose: 
 
   await remoteConfig.setDefaults({
     'requiredMinVersion': AppConfig.requiredVersion,
-    //'apiUrl': dotenv.get('API_URL', fallback: 'http://localhost/api/v1'),
+    'apiUrl': dotenv.get('API_URL', fallback: 'http://localhost/api/v1'),
+    'cmsAssetUrl': dotenv.get('CMS_ASSET_URL'),
+    'cmsApiUrl': dotenv.get('CMS_API_URL'),
+    'cmsApiToken': dotenv.get('CMS_API_KEY'),
   });
 
   await remoteConfig.fetchAndActivate();
@@ -26,6 +29,8 @@ class RemoteConfigService {
   RemoteConfigService(this._remoteConfig);
 
   String get requiredMinVersion => _remoteConfig.getString('requiredMinVersion');
-  String get privacyUrl => _remoteConfig.getString('privacyUrl');
-  String get cgvUrl => _remoteConfig.getString('cgvUrl');
+  String get apiUrl => _remoteConfig.getString('apiUrl');
+  String get cmsAssetUrl => _remoteConfig.getString('cmsAssetUrl');
+  String get cmsApiUrl => _remoteConfig.getString('cmsApiUrl');
+  String get cmsApiToken => _remoteConfig.getString('cmsApiToken');
 }

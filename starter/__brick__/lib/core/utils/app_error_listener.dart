@@ -14,27 +14,6 @@ class AppErrorListener extends ConsumerWidget {
     ref.listen<ErrorEvent?>(globalErrorProvider, (previous, next) {
       if (next != null) {
         showAppToast(isError: true, message: next.message);
-
-        /*ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                HugeIcon(icon: HugeIcons.strokeRoundedAlertSquare, color: Colors.white, size: 20),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(next.message, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)).withColor(Colors.white),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.redAccent.shade200,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            elevation: 0,
-            duration: const Duration(seconds: 3),
-            dismissDirection: DismissDirection.horizontal,
-          ),
-        );*/
       }
     });
 
