@@ -8,25 +8,33 @@ import '../../bootstrap/providers.dart';
 * remove the state = assignment when calling it.
 *
 *
-  Future<void> fetchData() async {
-    await guardAndNotify(
-      () async {
-        final response = await dio.get('my_api/data');
-        return MyData.fromJson(response.data);
-      }
+* await guard(
+      () => await dio.get('my_api/data')
     );
-  }
-  *
-  *
+*
+* return guard(() async {
+      await userService.updateProfile(name: name, phone: phone, address: address, city: city, postcode: postcode, country: country);
+      return userService.currentUser();
+});
+*
+*
 * */
 mixin GuardMixin<T> on AsyncNotifier<T> {
-  Future<void> guardAndNotify(Future<T> Function() future) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(future);
-
-    if (state.hasError) {
-      final error = state.error!;
-      ref.read(globalErrorProvider.notifier).handle(error, state.stackTrace);
+  /// Runs [request] as a mutation: shows loading, reports errors to
+  /// [globalErrorProvider], re-syncs with the server on failure.
+  /// Returns true on success. Safe against disposal mid-request.
+  Future<bool> guard(Future<T> Function() request) async {
+    state = const AsyncLoading();
+    try {
+      final data = await request();
+      if (!ref.mounted) return false;
+      state = AsyncData(data);
+      return true;
+    } catch (e, stackTrace) {
+      if (!ref.mounted) return false;
+      ref.read(globalErrorProvider.notifier).handle(e, stackTrace);
+      ref.invalidateSelf();
+      return false;
     }
   }
 }

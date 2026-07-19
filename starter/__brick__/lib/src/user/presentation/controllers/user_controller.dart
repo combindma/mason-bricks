@@ -25,7 +25,7 @@ class UserController extends AsyncNotifier<UserModel?> with GuardMixin<UserModel
 
   Future<void> updateProfile({required String name, String? phone, String? address, String? city, String? zipCode, String? country}) async {
     final userService = ref.read(userServiceProvider);
-    await guardAndNotify(() async {
+    await guard(() async {
       await userService.updateProfile(name: name, phone: phone, address: address, city: city, zipCode: zipCode, country: country);
       return userService.currentUser();
     });
